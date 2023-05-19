@@ -18,8 +18,9 @@ public class UserEntity {
     @Column(name = "user_name", nullable = false, length = 20)
     private String name;
 
-    @Column(name = "user_status",length = 20)
+    @Column(name = "user_status", length = 20)
     private String status;
+
 
     @Column(nullable = false)
     private String birth;
@@ -28,11 +29,14 @@ public class UserEntity {
     @Column(nullable = false, length = 100)
     private String address;
 
-    @Column(name = "student_id",unique = true)
+    @Column(name = "student_id", unique = true)
     private Long studentId;
 
-    @Column(name = "phone_number",length = 100)
+    @Column(name = "phone_number", length = 100)
     private String phoneNumber;
+
+    @Column(length = 50, nullable = false)
+    private String password;
 
     private String role;
 

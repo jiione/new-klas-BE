@@ -5,17 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class DepartmentEntity {
-
+public class BoardEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "department_id")
+    @Column(name = "board_id")
     private Long id;
 
-    @Column(name = "department_name", length = 20, unique = true)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private SubjectsEntity subjects;
+
+    @OneToMany(mappedBy = "board")
+    private List<PostEntity> posts;
 }
