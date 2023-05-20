@@ -11,7 +11,8 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class SubjectsEntity {
+@Table(name = "subject")
+public class Subjects {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subject_id")
@@ -21,7 +22,7 @@ public class SubjectsEntity {
     private String name;
 
     @Column(nullable = false, length = 20)
-    private String credit;
+    private Integer credit;
 
     @Column(name = "lecture_time")
     private Timestamp time;
@@ -35,10 +36,12 @@ public class SubjectsEntity {
     @Column(name = "subject_content", length = 1000)
     private String content;
 
-    @OneToMany(mappedBy = "subjects")
-    private List<CourseEntity> courses;
+    @OneToMany
+    @JoinColumn(name = "course_id")
+    private List<Course> courses;
 
-    @OneToMany(mappedBy = "subjects")
-    private List<BoardEntity> boards;
+    @OneToMany
+    @JoinColumn(name = "board_id")
+    private List<Board> boards;
 
 }

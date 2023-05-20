@@ -9,19 +9,16 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class CourseEntity {
+@Table(name = "course")
+public class Course {
     @EmbeddedId
-    private CouresEntityId id;
+    private CouresId id;
 
     private String score;
 
     @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private UserEntity user;
-
-    @ManyToOne
-    @JoinColumn(name = "subject_id", insertable = false, updatable = false)
-    private SubjectsEntity subjects;
+    private User user;
 }
 
 

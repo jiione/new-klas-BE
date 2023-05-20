@@ -3,13 +3,14 @@ package com.SoftwareEngineering.AcademicAdmin.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class UserEntity {
-
+@Table(name = "user")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -23,7 +24,7 @@ public class UserEntity {
 
 
     @Column(nullable = false)
-    private String birth;
+    private LocalDate birth;
     private Long grade;
 
     @Column(nullable = false, length = 100)
@@ -41,9 +42,9 @@ public class UserEntity {
     private String role;
 
     @OneToMany(mappedBy = "user")
-    private List<CourseEntity> Coures;
+    private List<Course> Coures;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
-    private DepartmentEntity department;
+    private Department department;
 }

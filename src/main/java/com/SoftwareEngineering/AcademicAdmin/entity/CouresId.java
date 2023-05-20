@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CouresEntityId implements Serializable {
+public class CouresId implements Serializable {
     @Column(name = "user_id")
     private Long userId;
 

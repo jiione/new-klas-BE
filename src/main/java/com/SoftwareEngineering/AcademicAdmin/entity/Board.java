@@ -10,15 +10,14 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class BoardEntity {
+@Table(name = "board")
+public class Board {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "subject_id")
-    private SubjectsEntity subjects;
-
-    @OneToMany(mappedBy = "board")
-    private List<PostEntity> posts;
+    @OneToMany
+    @JoinColumn(name = "post_id")
+    private List<Post> posts;
 }

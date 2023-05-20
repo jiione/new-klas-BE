@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class PostEntity {
+@Table(name = "post")
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
@@ -20,7 +22,7 @@ public class PostEntity {
     private String writer;
 
     @Column(name = "post_time")
-    private Timestamp time;
+    private LocalDateTime time;
 
     @Column(name = "post_content", length = 2000)
     private String content;
@@ -29,9 +31,5 @@ public class PostEntity {
     private String title;
 
     @Column(name = "post_view")
-    private String view;
-
-    @ManyToOne
-    @JoinColumn(name = "board_id")
-    private BoardEntity board;
+    private Long view;
 }
