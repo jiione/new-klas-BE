@@ -21,7 +21,7 @@ public class Subjects {
     @Column(name = "subject_name", length = 20, nullable = false)
     private String name;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private Integer credit;
 
     @Column(name = "lecture_time")
@@ -36,11 +36,11 @@ public class Subjects {
     @Column(name = "subject_content", length = 1000)
     private String content;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private List<Course> courses;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private List<Board> boards;
 

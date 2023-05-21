@@ -41,7 +41,7 @@ public class User {
 
     private String role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Course> Coures;
 
     @ManyToOne
