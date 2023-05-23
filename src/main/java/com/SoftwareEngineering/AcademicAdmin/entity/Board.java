@@ -17,6 +17,8 @@ public class Board {
     @Column(name = "board_id")
     private Long id;
 
+    private Integer code;
+
     @OneToMany
     @JoinColumn(name = "post_id")
     private List<Post> posts;
