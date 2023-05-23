@@ -24,7 +24,7 @@ public class Board {
      * 4: 과제
      */
     private Integer code;
-    
+
     @OneToMany
     @JoinColumn(name = "post_id")
     private List<Post> posts;
