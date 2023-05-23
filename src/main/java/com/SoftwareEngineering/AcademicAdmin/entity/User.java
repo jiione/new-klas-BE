@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.request.SignUpReqDTO;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -22,10 +24,8 @@ public class User {
     @Column(name = "user_status", length = 20)
     private String status;
 
-
     @Column(nullable = false)
     private LocalDate birth;
-    private Long grade;
 
     @Column(nullable = false, length = 100)
     private String address;
@@ -41,10 +41,26 @@ public class User {
 
     private String role;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Course> Coures;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Course> courses;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
+
+    private User(SignUpReqDTO signUpReqDTO, Department department){
+        this.name = signUpReqDTO.getName();
+        this.address = signUpReqDTO.getAddress();
+        this.birth = signUpReqDTO.getBirth();
+        this.studentId = signUpReqDTO.getStudentId();
+        this.password = signUpReqDTO.getPassword();
+        this.phoneNumber = signUpReqDTO.getPhoneNumber();
+        this.department = department;
+        this.status = "재학";
+        this.role = signUpReqDTO.getRole();
+    }
+
+    public static User of(SignUpReqDTO signUpReqDTO, Department department){
+        return new User(signUpReqDTO, department);
+    }
 }

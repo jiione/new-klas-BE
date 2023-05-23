@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.request.SignUpReqDTO;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -19,4 +21,5 @@ public class Department {
 
     @Column(name = "department_name", length = 20, unique = true)
     private String name;
+
 }
