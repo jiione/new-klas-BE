@@ -1,14 +1,15 @@
 package com.SoftwareEngineering.AcademicAdmin.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "board")
 public class Board {
@@ -19,7 +20,11 @@ public class Board {
 
     private Integer code;
 
-    @OneToMany
-    @JoinColumn(name = "post_id")
-    private List<Post> posts;
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subjects subjects;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<Post> posts = new ArrayList<>();
 }

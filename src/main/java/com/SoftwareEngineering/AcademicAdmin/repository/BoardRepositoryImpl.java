@@ -20,14 +20,14 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     private EntityManager entityManager;
 
     @Override
-    public List<Post> findLatestPostsByBoardCode(){
+    public List<Post> findLatestPostsByBoardCode(int code){
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Post> query = cb.createQuery(Post.class);
         Root<Board> boardRoot = query.from(Board.class);
         Join<Board, Post> postJoin = boardRoot.join("posts");
 
         query.select(postJoin)
-                .where(cb.equal(boardRoot.get("code"), 0))
+                .where(cb.equal(boardRoot.get("code"), code))
                 .orderBy(cb.desc(postJoin.get("time")));
 
         TypedQuery<Post> typedQuery = entityManager.createQuery(query);

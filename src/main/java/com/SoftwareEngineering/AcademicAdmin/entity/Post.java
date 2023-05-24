@@ -1,8 +1,6 @@
 package com.SoftwareEngineering.AcademicAdmin.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -10,6 +8,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "post")
 public class Post {
@@ -32,4 +32,8 @@ public class Post {
 
     @Column(name = "post_view")
     private Long view;
+
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
 }
