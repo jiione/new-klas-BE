@@ -37,8 +37,8 @@ public class BoardRepositoryTest {
                 .name("SubjectName")
                 .credit(3)
                 .time(Timestamp.valueOf(LocalDateTime.now()))
-                .day("Monday")
-                .code("SUB001")
+                .day("day1")
+                .code("SUB1")
                 .content("SubjectContent")
                 .build();
 
