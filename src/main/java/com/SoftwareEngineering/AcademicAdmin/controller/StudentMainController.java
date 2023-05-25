@@ -1,5 +1,6 @@
 package com.SoftwareEngineering.AcademicAdmin.controller;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.response.PostResDto;
 import com.SoftwareEngineering.AcademicAdmin.entity.Post;
 import com.SoftwareEngineering.AcademicAdmin.service.StudentMainService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,7 @@ public class StudentMainController {
     StudentMainService studentMainService;
 
     @GetMapping("/notice")
-    public ResponseEntity<List<Post>> getRecentNotice(){
-
-        return ResponseEntity.ok().body(null);
+    public ResponseEntity<List<PostResDto>> getRecentNotice(){
+        return ResponseEntity.ok().body(studentMainService.getTop5Post(0));
     }
 }
