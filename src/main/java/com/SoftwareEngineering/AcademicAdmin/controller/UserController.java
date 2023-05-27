@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.request.LoginReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SignUpReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.service.UserService;
 
@@ -27,5 +28,10 @@ public class UserController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void singUp(@RequestBody @Valid SignUpReqDTO signUpReqDTO){
 		userService.signUp(signUpReqDTO);
+	}
+
+	@PostMapping("login")
+	public void login(@RequestBody @Valid LoginReqDTO loginReqDTO){
+		userService.login(loginReqDTO);
 	}
 }
