@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.SoftwareEngineering.AcademicAdmin.dto.request.LoginReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SignUpReqDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.LoginResDTO;
 import com.SoftwareEngineering.AcademicAdmin.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,8 @@ public class UserController {
 		userService.signUp(signUpReqDTO);
 	}
 
-	@PostMapping("login")
-	public void login(@RequestBody @Valid LoginReqDTO loginReqDTO){
-		userService.login(loginReqDTO);
+	@PostMapping("/login")
+	public LoginResDTO login(@RequestBody @Valid LoginReqDTO loginReqDTO){
+		return userService.login(loginReqDTO);
 	}
 }

@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.SoftwareEngineering.AcademicAdmin.dto.request.LoginReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SignUpReqDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.LoginResDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.Department;
 import com.SoftwareEngineering.AcademicAdmin.entity.User;
 import com.SoftwareEngineering.AcademicAdmin.exception.department.DepartmentNotFound;
@@ -22,9 +23,10 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final DepartmentRepository departmentRepository;
 
-	public void login(LoginReqDTO loginReqDTO){
+	public LoginResDTO login(LoginReqDTO loginReqDTO){
 		User user = getUser(loginReqDTO.getStudentId());
 		validateUser(user, loginReqDTO.getPassword());
+		return LoginResDTO.from(user.getId());
 	}
 
 	private void validateUser (User user, String password){
