@@ -36,8 +36,7 @@ public class Subjects {
     @Column(name = "subject_content", length = 1000)
     private String content;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
+    @OneToMany(mappedBy = "subjects", cascade = CascadeType.ALL)
     private List<Course> courses;
 
 }

@@ -60,7 +60,7 @@ public class BoardRepositoryTest {
         boardRepository.save(board);
 
         // 최신 포스트 5개 가져오기
-        List<Post> latestPosts = boardRepository.findLatestPostsByBoardCode(0);
+        List<Post> latestPosts = boardRepository.findLatestPostsByBoardCodeAndSubjectId(0,subjects.getId());
         assertEquals(5, latestPosts.size());
         assertEquals("Writer0", latestPosts.get(0).getWriter()); // Writer0가 가장 최신 포스트임
 

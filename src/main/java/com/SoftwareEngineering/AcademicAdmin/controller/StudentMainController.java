@@ -5,9 +5,7 @@ import com.SoftwareEngineering.AcademicAdmin.entity.Post;
 import com.SoftwareEngineering.AcademicAdmin.service.StudentMainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,10 +14,10 @@ import java.util.List;
 @RequestMapping("/main")
 public class StudentMainController {
 
-    StudentMainService studentMainService;
+    private final StudentMainService studentMainService;
 
     @GetMapping("/notice")
-    public ResponseEntity<List<PostResDto>> getRecentNotice(){
-        return ResponseEntity.ok().body(studentMainService.getTop5Post(0));
+    public ResponseEntity<List<PostResDto>> getRecentNotice(@RequestParam Long id){
+        return ResponseEntity.ok().body(studentMainService.getTop5Post(id));
     }
 }

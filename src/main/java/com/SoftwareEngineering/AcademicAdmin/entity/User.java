@@ -10,6 +10,8 @@ import com.SoftwareEngineering.AcademicAdmin.dto.request.SignUpReqDTO;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "user")
 public class User {
