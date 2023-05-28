@@ -50,6 +50,9 @@ public class User {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Semester> semesters;
+
     private User(SignUpReqDTO signUpReqDTO, Department department){
         this.name = signUpReqDTO.getName();
         this.address = signUpReqDTO.getAddress();
