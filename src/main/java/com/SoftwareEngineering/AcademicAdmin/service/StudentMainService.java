@@ -24,11 +24,12 @@ public class StudentMainService {
 
     private final UserRepository userRepository;
 
-    public List<PostResDto> getTop5Post(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow();
+    private final UserService userService;
 
-        List<Course> courses = user.getCourses();
+    public List<PostResDto> getTop5Post(Long studentId) {
+        User user = userService.getUser(studentId);
+
+        List<Course> courses = userService.getCourse(user);
         List<Post> posts = new ArrayList<>();
 
         for (Course course : courses) {

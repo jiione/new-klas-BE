@@ -33,7 +33,7 @@ public class Post {
     @Column(name = "post_view")
     private Long view;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
 }

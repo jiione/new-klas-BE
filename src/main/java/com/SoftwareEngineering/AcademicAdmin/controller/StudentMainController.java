@@ -17,7 +17,7 @@ public class StudentMainController {
     private final StudentMainService studentMainService;
 
     @GetMapping("/notice")
-    public ResponseEntity<List<PostResDto>> getRecentNotice(@RequestParam Long id){
-        return ResponseEntity.ok().body(studentMainService.getTop5Post(id));
+    public ResponseEntity<List<PostResDto>> getRecentNotice(@RequestParam Long studentId){
+        return ResponseEntity.ok().body(studentMainService.getTop5Post(studentId));
     }
 }
