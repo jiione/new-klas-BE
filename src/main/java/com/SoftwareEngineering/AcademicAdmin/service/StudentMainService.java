@@ -45,7 +45,7 @@ public class StudentMainService {
         for (Post post : sortedPosts) {
             postResDtos.add(PostResDto.builder()
                     .id(post.getId())
-                    .time(post.getTime()) // 예시로 LocalDateTime을 String으로 변환하여 설정
+                    .time(post.getTime())
                     .title(post.getTitle())
                     .writer(post.getWriter())
                     .name(post.getBoard().getSubjects().getName())
