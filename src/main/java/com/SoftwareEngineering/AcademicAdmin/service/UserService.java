@@ -42,14 +42,6 @@ public class UserService {
 			.orElseThrow(UserNotFound::new);
 	}
 
-	public List<Course> getCourse(User user){
-		return user.getCourses();
-	}
-
-	public List<Semester> getSemesters(User user){
-		return user.getSemesters();
-	}
-
 	public void signUp(SignUpReqDTO signUpReqDTO){
 		Department department = getDepartmentByName(signUpReqDTO.getDepartmentName());
 		User user = User.of(signUpReqDTO, department);

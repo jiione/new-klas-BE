@@ -30,7 +30,7 @@ public class StudentMainService {
     public List<PostResDto> getTop5Post(Long studentId) {
         User user = userService.getUser(studentId);
 
-        List<Course> courses = userService.getCourse(user);
+        List<Course> courses = user.getCourses();
         List<Post> posts = new ArrayList<>();
 
         for (Course course : courses) {
@@ -59,7 +59,7 @@ public class StudentMainService {
 
     public List<String> getUserSemesters(Long studentId) {
         User user = userService.getUser(studentId);
-        List<Semester> semesters = userService.getSemesters(user);
+        List<Semester> semesters = user.getSemesters();
 
         List<String> semesterList = new ArrayList<>();
 
