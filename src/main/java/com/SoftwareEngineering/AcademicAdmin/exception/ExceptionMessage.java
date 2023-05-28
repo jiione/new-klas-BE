@@ -16,4 +16,7 @@ public final class ExceptionMessage {
 	public static final String ROLE_IS_EMPTY = "역할은 필수 값 입니다";
 	public static final String DEPARTMENT_IS_EMPTY = "학과는 필수 값 입니다.";
 
+	//로그인
+	public static final String USER_NOT_FOUND = "해당하는 사용자가 존재하지 않습니다.";
+	public static final String INVALID_PASSWORD = "비밀번호가 일치하지 않습니다.";
 }
