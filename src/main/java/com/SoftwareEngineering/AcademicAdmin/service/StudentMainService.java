@@ -3,6 +3,7 @@ package com.SoftwareEngineering.AcademicAdmin.service;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.PostResDto;
 import com.SoftwareEngineering.AcademicAdmin.entity.Course;
 import com.SoftwareEngineering.AcademicAdmin.entity.Post;
+import com.SoftwareEngineering.AcademicAdmin.entity.Semester;
 import com.SoftwareEngineering.AcademicAdmin.entity.User;
 import com.SoftwareEngineering.AcademicAdmin.repository.BoardRepository;
 import com.SoftwareEngineering.AcademicAdmin.repository.UserRepository;
@@ -54,5 +55,18 @@ public class StudentMainService {
         }
 
         return postResDtos;
+    }
+
+    public List<String> getUserSemesters(Long studentId) {
+        User user = userService.getUser(studentId);
+        List<Semester> semesters = userService.getSemesters(user);
+
+        List<String> semesterList = new ArrayList<>();
+
+        for (Semester semester : semesters) {
+            semesterList.add(String.valueOf(semester.getYear()) + "년도 " + String.valueOf(semester.getSemester()) + "학기");
+        }
+
+        return semesterList;
     }
 }

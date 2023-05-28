@@ -1,6 +1,7 @@
 package com.SoftwareEngineering.AcademicAdmin.service;
 
 import com.SoftwareEngineering.AcademicAdmin.entity.Course;
+import com.SoftwareEngineering.AcademicAdmin.entity.Semester;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +44,10 @@ public class UserService {
 
 	public List<Course> getCourse(User user){
 		return user.getCourses();
+	}
+
+	public List<Semester> getSemesters(User user){
+		return user.getSemesters();
 	}
 
 	public void signUp(SignUpReqDTO signUpReqDTO){
