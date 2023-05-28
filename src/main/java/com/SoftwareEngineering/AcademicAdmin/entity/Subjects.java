@@ -1,8 +1,6 @@
 package com.SoftwareEngineering.AcademicAdmin.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -10,6 +8,8 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "subject")
 public class Subjects {
@@ -36,12 +36,7 @@ public class Subjects {
     @Column(name = "subject_content", length = 1000)
     private String content;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
+    @OneToMany(mappedBy = "subjects", cascade = CascadeType.ALL)
     private List<Course> courses;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
-    private List<Board> boards;
 
 }
