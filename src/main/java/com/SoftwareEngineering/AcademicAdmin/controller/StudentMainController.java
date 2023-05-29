@@ -20,4 +20,9 @@ public class StudentMainController {
     public ResponseEntity<List<PostResDto>> getRecentNotice(@RequestParam Long studentId){
         return ResponseEntity.ok().body(studentMainService.getTop5Post(studentId));
     }
+
+    @GetMapping("/semesters")
+    public ResponseEntity<List<String>> getSemesters(@RequestParam Long studentId){
+        return ResponseEntity.ok().body(studentMainService.getUserSemesters(studentId));
+    }
 }

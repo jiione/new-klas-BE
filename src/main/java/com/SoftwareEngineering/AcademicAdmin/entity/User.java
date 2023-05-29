@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SignUpReqDTO;
@@ -43,12 +44,13 @@ public class User {
 
     private String role;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Course> courses;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Semester> semesters;
 
     private User(SignUpReqDTO signUpReqDTO, Department department){
         this.name = signUpReqDTO.getName();
@@ -64,5 +66,12 @@ public class User {
 
     public static User of(SignUpReqDTO signUpReqDTO, Department department){
         return new User(signUpReqDTO, department);
+    }
+
+    public Semester getLatestSemester() {
+        return semesters.stream()
+                .max(Comparator.comparing(Semester::getYear)
+                        .thenComparing(Semester::getSemester))
+                .orElse(null);
     }
 }
