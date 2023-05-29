@@ -13,8 +13,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 public class CouresId implements Serializable {
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "semester_id")
+    private Long semesterId;
 
     @Column(name = "subject_id")
     private Long subjectId;
