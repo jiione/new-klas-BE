@@ -30,7 +30,9 @@ public class StudentMainService {
     public List<PostResDto> getTop5Post(Long studentId) {
         User user = userService.getUser(studentId);
 
-        List<Course> courses = user.getCourses();
+        Semester latestSemester = user.getLatestSemester();
+
+        List<Course> courses = latestSemester.getCourses();
         List<Post> posts = new ArrayList<>();
 
         for (Course course : courses) {
