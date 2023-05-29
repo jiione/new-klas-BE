@@ -17,8 +17,8 @@ public class Course {
     private String score;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private User user;
+    @JoinColumn(name = "semester_id", insertable = false, updatable = false)
+    private Semester semester;
 
     @ManyToOne
     @JoinColumn(name = "subject_id", insertable = false, updatable = false)

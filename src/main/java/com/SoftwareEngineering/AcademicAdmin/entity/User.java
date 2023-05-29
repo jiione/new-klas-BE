@@ -43,8 +43,6 @@ public class User {
 
     private String role;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Course> courses;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")

@@ -3,6 +3,7 @@ package com.SoftwareEngineering.AcademicAdmin.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,4 +24,7 @@ public class Semester {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "semester",cascade = CascadeType.ALL)
+    private List<Course> courses;
 }
