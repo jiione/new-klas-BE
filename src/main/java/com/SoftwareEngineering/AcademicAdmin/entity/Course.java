@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.BatchSize;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -11,17 +13,20 @@ import javax.persistence.*;
 @Entity
 @Table(name = "course")
 public class Course {
-    @EmbeddedId
-    private CouresId id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "course_id")
+    private Long id;
 
     private String score;
 
-    @ManyToOne
-    @JoinColumn(name = "semester_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "semester_id")
     private Semester semester;
 
-    @ManyToOne
-    @JoinColumn(name = "subject_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subject_id")
     private Subjects subjects;
 }
 
