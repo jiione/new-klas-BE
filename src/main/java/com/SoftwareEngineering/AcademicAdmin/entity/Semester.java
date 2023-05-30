@@ -34,4 +34,9 @@ public class Semester {
 
     @OneToMany(mappedBy = "semester", cascade = CascadeType.ALL)
     private Set<Course> courses = new HashSet<>();
+
+
+    public String getName(){
+        return String.valueOf(year)+"학년도 "+String.valueOf(semester)+"학기";
+    }
 }
