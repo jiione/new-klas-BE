@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.SoftwareEngineering.AcademicAdmin.exception.department.DepartmentNotFound;
+import com.SoftwareEngineering.AcademicAdmin.exception.semester.SemesterNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.user.InvalidPassword;
 import com.SoftwareEngineering.AcademicAdmin.exception.user.UserNotFound;
 
@@ -37,6 +38,12 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(InvalidPassword.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ExceptionResponse invalidPasswordException(Exception e) {
+		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+	}
+
+	@ExceptionHandler(SemesterNotFound.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionResponse semesterNotFoundException(Exception e) {
 		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
 	}
 }
