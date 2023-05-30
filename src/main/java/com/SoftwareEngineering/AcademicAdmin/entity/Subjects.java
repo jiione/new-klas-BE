@@ -36,8 +36,5 @@ public class Subjects {
 
     @Column(name = "subject_content", length = 1000)
     private String content;
-
-    @OneToMany(mappedBy = "subjects", cascade = CascadeType.ALL)
-    private List<Course> courses;
-
+    
 }
