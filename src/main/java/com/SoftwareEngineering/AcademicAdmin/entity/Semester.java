@@ -25,6 +25,6 @@ public class Semester {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "semester",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "semester", cascade = CascadeType.ALL)
     private List<Course> courses;
 }
