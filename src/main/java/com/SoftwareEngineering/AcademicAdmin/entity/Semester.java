@@ -17,7 +17,6 @@ import org.hibernate.annotations.BatchSize;
 @Builder
 @Entity
 @Table(name = "semester")
-@EqualsAndHashCode(callSuper = false)
 public class Semester {
 
     @Id

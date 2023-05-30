@@ -18,7 +18,6 @@ import com.SoftwareEngineering.AcademicAdmin.dto.request.SignUpReqDTO;
 @Builder
 @Entity
 @Table(name = "user")
-@EqualsAndHashCode(callSuper = false)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
