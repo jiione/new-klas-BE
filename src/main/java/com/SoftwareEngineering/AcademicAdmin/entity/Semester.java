@@ -3,7 +3,13 @@ package com.SoftwareEngineering.AcademicAdmin.entity;
 import lombok.*;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import org.hibernate.annotations.BatchSize;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -11,10 +17,12 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "semester")
+@EqualsAndHashCode(callSuper = false)
 public class Semester {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "semster_id")
+    @Column(name = "semester_id")
     private Long id;
 
     private Long year;
@@ -26,5 +34,5 @@ public class Semester {
     private User user;
 
     @OneToMany(mappedBy = "semester", cascade = CascadeType.ALL)
-    private List<Course> courses;
+    private Set<Course> courses = new HashSet<>();
 }
