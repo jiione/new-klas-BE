@@ -3,7 +3,6 @@ package com.SoftwareEngineering.AcademicAdmin.dto.response;
 import lombok.*;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
