@@ -27,4 +27,8 @@ public class Semester {
 
     @OneToMany(mappedBy = "semester",cascade = CascadeType.ALL)
     private List<Course> courses;
+
+    public String getName(){
+        return String.valueOf(year)+"학년도 "+String.valueOf(semester)+"학기";
+    }
 }
