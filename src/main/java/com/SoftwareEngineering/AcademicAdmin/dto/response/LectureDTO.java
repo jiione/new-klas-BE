@@ -19,7 +19,7 @@ public class LectureDTO {
 	private Set<SubjectDTO> classes = new HashSet<>();
 
 	private LectureDTO(Semester semester, Set<SubjectDTO> subjectDTOS){
-		this.semester = semester.getYear() + "학년도 " + semester.getSemester() + "학기";
+		this.semester = semester.getName();
 		this.classes = subjectDTOS;
 	}
 
