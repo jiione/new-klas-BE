@@ -23,7 +23,7 @@ public class GradeService {
 
     public Map<String, Object> getGrade(Long studentId) {
         User user = userService.getUser(studentId);
-        List<Semester> semesters = user.getSemesters();
+        Set<Semester> semesters = user.getSemesters();
         List<GradeAvgResDTO> gradeAvgs = new ArrayList<>();
         List<GradeDetailResDTO> gradeDetails = new ArrayList<>();
 
@@ -35,7 +35,7 @@ public class GradeService {
             GradeDetailResDTO gradeDetail = new GradeDetailResDTO();
 
             gradeDetail.setSemesterName(semesterName);
-            List<Course> courses = semester.getCourses();
+            Set<Course> courses = semester.getCourses();
 
             for(Course course : courses){
                 changeScore(course.getScore());

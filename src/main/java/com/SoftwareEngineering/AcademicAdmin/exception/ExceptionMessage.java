@@ -19,4 +19,7 @@ public final class ExceptionMessage {
 	//로그인
 	public static final String USER_NOT_FOUND = "해당하는 사용자가 존재하지 않습니다.";
 	public static final String INVALID_PASSWORD = "비밀번호가 일치하지 않습니다.";
+
+	//semester
+	public static final String SEMESTER_NOT_FOUND = "학기가 존재하지 않습니다.";
 }

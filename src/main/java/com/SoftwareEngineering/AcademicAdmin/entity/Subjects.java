@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -25,7 +26,7 @@ public class Subjects {
     private Integer credit;
 
     @Column(name = "lecture_time")
-    private Timestamp time;
+    private LocalTime time;
 
     @Column(name = "lecture_day", length = 20)
     private String day;
@@ -35,8 +36,5 @@ public class Subjects {
 
     @Column(name = "subject_content", length = 1000)
     private String content;
-
-    @OneToMany(mappedBy = "subjects", cascade = CascadeType.ALL)
-    private List<Course> courses;
-
+    
 }

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -23,8 +24,6 @@ public class StudentMainService {
 
     private final BoardRepository boardRepository;
 
-    private final UserRepository userRepository;
-
     private final UserService userService;
 
     public List<PostResDto> getTop5Post(Long studentId) {
@@ -32,7 +31,7 @@ public class StudentMainService {
 
         Semester latestSemester = user.getLatestSemester();
 
-        List<Course> courses = latestSemester.getCourses();
+        Set<Course> courses = latestSemester.getCourses();
         List<Post> posts = new ArrayList<>();
 
         for (Course course : courses) {
@@ -61,7 +60,7 @@ public class StudentMainService {
 
     public List<String> getUserSemesters(Long studentId) {
         User user = userService.getUser(studentId);
-        List<Semester> semesters = user.getSemesters();
+        Set<Semester> semesters = user.getSemesters();
 
         List<String> semesterList = new ArrayList<>();
 

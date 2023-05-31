@@ -4,8 +4,11 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SignUpReqDTO;
 
@@ -50,7 +53,7 @@ public class User {
     private Department department;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Semester> semesters;
+    private Set<Semester> semesters = new HashSet<>();
 
     private User(SignUpReqDTO signUpReqDTO, Department department){
         this.name = signUpReqDTO.getName();
