@@ -1,8 +1,6 @@
-package com.SoftwareEngineering.AcademicAdmin.dto.response;
+package com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import lombok.Getter;
