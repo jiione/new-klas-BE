@@ -1,6 +1,7 @@
 package com.SoftwareEngineering.AcademicAdmin.entity;
 
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
