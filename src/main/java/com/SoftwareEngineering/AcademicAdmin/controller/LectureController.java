@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.AssignmentResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.LectureResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.NoticeResDTO;
 import com.SoftwareEngineering.AcademicAdmin.service.LectureService;
@@ -13,18 +14,24 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/lecture/{studentId}")
+@RequestMapping("/api")
 public class LectureController {
 	private final LectureService lectureService;
 
-	@GetMapping
+	@GetMapping("/lecture/{studentId}")
 	public LectureResDTO getLecture(@PathVariable("studentId") Long studentId) {
 		return lectureService.getLecture(studentId);
 	}
 
-	@GetMapping("{classId}")
+	@GetMapping("/notice/{studentId}/{classId}")
 	public NoticeResDTO getNotice(@PathVariable("studentId")Long studentId,
 		@PathVariable("classId")Long classId){
 		return lectureService.getNotice(studentId, classId);
+	}
+
+	@GetMapping("/assignment/{studentId}/{classId}")
+	public AssignmentResDTO getAssignment(@PathVariable("studentId")Long studentId,
+		@PathVariable("classId")Long classId){
+		return lectureService.getAssignment(studentId, classId);
 	}
 }
