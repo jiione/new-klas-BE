@@ -36,5 +36,9 @@ public class Subjects {
 
     @Column(name = "subject_content", length = 1000)
     private String content;
+
+    private Long year;
+
+    private Long semester;
     
 }
