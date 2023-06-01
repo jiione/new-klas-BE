@@ -7,6 +7,7 @@ import com.SoftwareEngineering.AcademicAdmin.entity.Course;
 import com.SoftwareEngineering.AcademicAdmin.entity.Semester;
 import com.SoftwareEngineering.AcademicAdmin.entity.Subjects;
 import com.SoftwareEngineering.AcademicAdmin.entity.User;
+import com.SoftwareEngineering.AcademicAdmin.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +21,11 @@ public class GradeService {
 
     private final UserService userService;
 
+    private final UserRepository userRepository;
+
 
     public Map<String, Object> getGrade(Long studentId) {
-        User user = userService.getUser(studentId);
+        User user = userRepository.getUserByStudentId(studentId);
         Set<Semester> semesters = user.getSemesters();
         List<GradeAvgResDTO> gradeAvgs = new ArrayList<>();
         List<GradeDetailResDTO> gradeDetails = new ArrayList<>();
