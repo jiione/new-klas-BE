@@ -22,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 		+ "JOIN FETCH c.subjects "
 		+ "WHERE u.studentId in :studentId")
 	User getUserByStudentId(@Param("studentId") Long studentId);
+
+	boolean existsUserByStudentId(Long studentId);
 }
