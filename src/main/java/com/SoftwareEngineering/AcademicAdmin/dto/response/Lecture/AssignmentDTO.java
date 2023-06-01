@@ -10,24 +10,23 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class NoticeDTO {
-
+public class AssignmentDTO {
 	private String title;
 
 	private LocalDate time;
 
-	private String writer;
+	private LocalDate deadline;
 
 	private Long id;
 
-	private NoticeDTO(Post post){
+	private AssignmentDTO(Post post){
 		this.title = post.getTitle();
 		this.time = post.getTime().toLocalDate();
-		this.writer = post.getWriter();
+		this.deadline = post.getDeadline().toLocalDate();
 		this.id = post.getId();
 	}
 
-	public static NoticeDTO from(Post post){
-		return new NoticeDTO(post);
+	public static AssignmentDTO from(Post post){
+		return new AssignmentDTO(post);
 	}
 }

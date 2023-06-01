@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.AssignmentDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.AssignmentResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.LectureDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.LectureResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.NoticeDTO;
@@ -72,7 +74,7 @@ public class LectureService {
 
 	private NoticeResDTO getNoticeList(Long classId){
 
-		Board board = boardRepository.findSubjectsByClassId(classId);
+		Board board = boardRepository.findNoticeByClassId(classId);
 		List<Post> posts =  board.getPosts();
 
 		List<NoticeDTO> noticeDTOS = posts.stream()
@@ -80,5 +82,23 @@ public class LectureService {
 			.collect(Collectors.toList());
 
 		return NoticeResDTO.from(noticeDTOS);
+	}
+
+	public AssignmentResDTO getAssignment(Long studentId, Long classId){
+
+		validateUser(studentId);
+		return getAssignmentList(classId);
+	}
+
+	private AssignmentResDTO getAssignmentList(Long classId){
+
+		Board board = boardRepository.findAssignmentByClassId(classId);
+		List<Post> posts =  board.getPosts();
+
+		List<AssignmentDTO> assignmentDTOS = posts.stream()
+			.map(AssignmentDTO::from)
+			.collect(Collectors.toList());
+
+		return AssignmentResDTO.from(assignmentDTOS);
 	}
 }
