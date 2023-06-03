@@ -53,7 +53,7 @@ public class LectureService {
 	private LectureResDTO getLectureList(Set<Semester> semesters) {
 
 		Set<LectureDTO> lectureDTOS = semesters.stream()
-			.map(semester -> LectureDTO.from(semester, getSubjectInfo(semester.getCourses())))
+			.map(semester -> LectureDTO.of(semester, getSubjectInfo(semester.getCourses())))
 			.collect(Collectors.toSet());
 
 		return LectureResDTO.from(lectureDTOS);
@@ -65,7 +65,7 @@ public class LectureService {
 		return getNoticeList(classId);
 	}
 
-	private void validateUser(Long studentId){
+	public void validateUser(Long studentId){
 
 		if(!userRepository.existsUserByStudentId(studentId))
 			throw new UserNotFound();
