@@ -1,6 +1,7 @@
 package com.SoftwareEngineering.AcademicAdmin.controller;
 
 import com.SoftwareEngineering.AcademicAdmin.dto.response.PostResDto;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.ScheduleResDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.Post;
 import com.SoftwareEngineering.AcademicAdmin.service.StudentMainService;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,10 @@ public class StudentMainController {
     @GetMapping("/semesters")
     public ResponseEntity<List<String>> getSemesters(@RequestParam Long studentId){
         return ResponseEntity.ok().body(studentMainService.getUserSemesters(studentId));
+    }
+
+    @GetMapping("/schedule")
+    public ResponseEntity<List<ScheduleResDTO>> getSchedule(@RequestParam Long studentId, @RequestParam String semester){
+        return ResponseEntity.ok().body(studentMainService.getStudentSchedule(studentId,semester));
     }
 }

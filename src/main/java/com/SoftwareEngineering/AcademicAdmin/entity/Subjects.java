@@ -27,13 +27,16 @@ public class Subjects {
     private Integer credit;
 
     @Column(name = "lecture_time")
-    private LocalTime time;
+    private String time;
 
     @Column(name = "lecture_day", length = 20)
     private String day;
 
     @Column(name = "subject_code", length = 20, unique = true)
     private String code;
+
+    @Column
+    private String professor;
 
     @Column(name = "subject_content", length = 1000)
     private String content;
