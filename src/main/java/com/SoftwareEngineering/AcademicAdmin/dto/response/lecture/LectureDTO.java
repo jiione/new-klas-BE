@@ -1,4 +1,4 @@
-package com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture;
+package com.SoftwareEngineering.AcademicAdmin.dto.response.lecture;
 
 import java.util.HashSet;
 import java.util.Set;

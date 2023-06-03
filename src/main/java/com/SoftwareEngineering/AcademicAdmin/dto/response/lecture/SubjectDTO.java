@@ -1,4 +1,4 @@
-package com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture;
+package com.SoftwareEngineering.AcademicAdmin.dto.response.lecture;
 
 import com.SoftwareEngineering.AcademicAdmin.entity.Subjects;
 

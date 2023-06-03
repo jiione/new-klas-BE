@@ -1,7 +1,6 @@
 package com.SoftwareEngineering.AcademicAdmin.service;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,13 +8,13 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.AssignmentDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.AssignmentResDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.LectureDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.LectureResDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.NoticeDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.NoticeResDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.SubjectDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.LectureDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.LectureResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.NoticeDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.NoticeResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.SubjectDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.Board;
 import com.SoftwareEngineering.AcademicAdmin.entity.Course;
 import com.SoftwareEngineering.AcademicAdmin.entity.Post;

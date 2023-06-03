@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.AssignmentResDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.LectureResDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture.NoticeResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.LectureResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.NoticeResDTO;
 import com.SoftwareEngineering.AcademicAdmin.service.LectureService;
 
 import lombok.RequiredArgsConstructor;
