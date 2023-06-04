@@ -45,7 +45,4 @@ public class Subjects {
 
     private Long semester;
 
-    @OneToMany(mappedBy = "subjects",  cascade = CascadeType.ALL)
-    private List<Course> course;
-    
 }
