@@ -1,7 +1,6 @@
-package com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture;
+package com.SoftwareEngineering.AcademicAdmin.dto.response.lecture;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import com.SoftwareEngineering.AcademicAdmin.entity.Post;
 

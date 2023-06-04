@@ -1,4 +1,4 @@
-package com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture;
+package com.SoftwareEngineering.AcademicAdmin.dto.response.lecture;
 
 import java.util.ArrayList;
 import java.util.List;

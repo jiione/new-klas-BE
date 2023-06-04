@@ -44,5 +44,5 @@ public class Subjects {
     private Long year;
 
     private Long semester;
-    
+
 }
