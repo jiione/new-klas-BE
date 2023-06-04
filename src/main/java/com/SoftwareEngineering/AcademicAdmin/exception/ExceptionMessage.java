@@ -22,4 +22,8 @@ public final class ExceptionMessage {
 
 	//semester
 	public static final String SEMESTER_NOT_FOUND = "학기가 존재하지 않습니다.";
+
+	//subjects
+	public static final String SUBJECT_NOT_FOUND = "과목이 존재하지 않습니다.";
+	public static final String CONTENT_NOT_FOUND = "내용이 존재하지 않습니다.";
 }
