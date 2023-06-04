@@ -93,26 +93,7 @@ public class StudentMainService {
 
         for(Course course : courses){
             Subjects subjects=course.getSubjects();
-
-            List<ScheduleDetailDTO> scheduleDetailDTOS = new ArrayList<>();
-
-            List<Integer> days = subjects.getDay().chars()
-                    .mapToObj(Character::getNumericValue)
-                    .collect(Collectors.toList());
-
-            String[] parts = subjects.getTime().split(",");
-
-            for(int i =0; i<days.size();i++){
-                ScheduleDetailDTO scheduleDetailDTO = new ScheduleDetailDTO();
-                scheduleDetailDTO.setDay(days.get(i));
-                for (char ch : parts[i].toCharArray()) {
-                    int digit = Character.getNumericValue(ch);
-                    scheduleDetailDTO.getTime().add(digit);
-                }
-
-                scheduleDetailDTOS.add(scheduleDetailDTO);
-            }
-
+            List<ScheduleDetailDTO> scheduleDetailDTOS = getScheduleDetail(subjects);
 
             ScheduleResDTO scheduleResDTO = ScheduleResDTO.builder()
                     .className(subjects.getName())
@@ -127,5 +108,29 @@ public class StudentMainService {
 
     }
 
+    public List<ScheduleDetailDTO> getScheduleDetail(Subjects subjects){
+        List<ScheduleDetailDTO> scheduleDetailDTOS = new ArrayList<>();
+        List<Integer> days = getDays(subjects);
+        String[] parts = subjects.getTime().split(",");
 
+        for(int i =0; i<days.size();i++){
+            ScheduleDetailDTO scheduleDetailDTO = new ScheduleDetailDTO();
+            scheduleDetailDTO.setDay(days.get(i));
+
+            for (char ch : parts[i].toCharArray()) {
+                int digit = Character.getNumericValue(ch);
+                scheduleDetailDTO.getTime().add(digit);
+            }
+
+            scheduleDetailDTOS.add(scheduleDetailDTO);
+        }
+
+        return scheduleDetailDTOS;
+    }
+
+    private List<Integer> getDays(Subjects subjects){
+        return subjects.getDay().chars()
+            .mapToObj(Character::getNumericValue)
+            .collect(Collectors.toList());
+    }
 }
