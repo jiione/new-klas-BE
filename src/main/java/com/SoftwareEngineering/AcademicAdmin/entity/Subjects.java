@@ -45,4 +45,9 @@ public class Subjects {
 
     private Long semester;
 
+    private Long personnel;
+
+    public void updatePersonnel(){
+        this.personnel -= 1;
+    }
 }
