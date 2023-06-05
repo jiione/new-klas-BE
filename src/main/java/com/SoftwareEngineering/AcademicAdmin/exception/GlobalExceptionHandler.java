@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.SoftwareEngineering.AcademicAdmin.exception.department.DepartmentNotFound;
+import com.SoftwareEngineering.AcademicAdmin.exception.register.AlreadyRegisterException;
+import com.SoftwareEngineering.AcademicAdmin.exception.register.AlreadyTimeException;
+import com.SoftwareEngineering.AcademicAdmin.exception.register.ClosedRegisterException;
 import com.SoftwareEngineering.AcademicAdmin.exception.semester.SemesterNotFound;
+import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.user.InvalidPassword;
 import com.SoftwareEngineering.AcademicAdmin.exception.user.UserNotFound;
 
@@ -44,6 +48,30 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(SemesterNotFound.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ExceptionResponse semesterNotFoundException(Exception e) {
+		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+	}
+
+	@ExceptionHandler(SubjectNotFound.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionResponse subjectNotFoundException(Exception e) {
+		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+	}
+
+	@ExceptionHandler(AlreadyRegisterException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionResponse alreadyRegisterException(Exception e) {
+		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+	}
+
+	@ExceptionHandler(ClosedRegisterException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionResponse closedRegisterException(Exception e) {
+		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+	}
+
+	@ExceptionHandler(AlreadyTimeException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionResponse alreadyTimeException(Exception e) {
 		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
 	}
 }
