@@ -38,4 +38,9 @@ public class Post {
     private Board board;
 
     private LocalDateTime deadline;
+
+    @PrePersist
+    public void prePersist() {
+        this.time = LocalDateTime.now();
+    }
 }
