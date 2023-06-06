@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.LectureResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.NoticeResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.ProfessorDTO;
 import com.SoftwareEngineering.AcademicAdmin.service.LectureService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,4 +35,10 @@ public class LectureController {
 		@PathVariable("classId")Long classId){
 		return lectureService.getAssignment(studentId, classId);
 	}
+
+	@GetMapping("/professor/{classId}")
+	public ProfessorDTO getProfessor(@PathVariable("classId")Long classId){
+		return lectureService.getProfessor(classId);
+	}
+
 }

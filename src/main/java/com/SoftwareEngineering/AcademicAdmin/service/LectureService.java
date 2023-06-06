@@ -14,14 +14,18 @@ import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.LectureDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.LectureResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.NoticeDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.NoticeResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.ProfessorDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.SubjectDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.Board;
 import com.SoftwareEngineering.AcademicAdmin.entity.Course;
 import com.SoftwareEngineering.AcademicAdmin.entity.Post;
 import com.SoftwareEngineering.AcademicAdmin.entity.Semester;
+import com.SoftwareEngineering.AcademicAdmin.entity.Subjects;
 import com.SoftwareEngineering.AcademicAdmin.entity.User;
+import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.user.UserNotFound;
 import com.SoftwareEngineering.AcademicAdmin.repository.BoardRepository;
+import com.SoftwareEngineering.AcademicAdmin.repository.SubjectsRepository;
 import com.SoftwareEngineering.AcademicAdmin.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -32,6 +36,7 @@ import lombok.RequiredArgsConstructor;
 public class LectureService {
 	private final UserRepository userRepository;
 	private final BoardRepository boardRepository;
+	private final SubjectsRepository subjectsRepository;
 
 	public LectureResDTO getLecture(Long studentId){
 
@@ -99,5 +104,16 @@ public class LectureService {
 			.collect(Collectors.toList());
 
 		return AssignmentResDTO.from(assignmentDTOS);
+	}
+
+	public ProfessorDTO getProfessor(Long classId){
+
+		Subjects subjects = getSubjects(classId);
+		return ProfessorDTO.from(subjects.getProfessor());
+	}
+
+	public Subjects getSubjects(Long classId){
+		return subjectsRepository.findById(classId)
+			.orElseThrow(SubjectNotFound::new);
 	}
 }
