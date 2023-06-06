@@ -43,4 +43,8 @@ public class Post {
     public void prePersist() {
         this.time = LocalDateTime.now();
     }
+
+    public void updateView(){
+        this.view += 1;
+    }
 }
