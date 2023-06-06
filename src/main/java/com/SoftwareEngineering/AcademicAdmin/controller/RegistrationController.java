@@ -2,6 +2,7 @@ package com.SoftwareEngineering.AcademicAdmin.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,14 @@ public class RegistrationController {
 	@PostMapping("/register/subject")
 	public void registerSubject(@RequestBody @Valid RegisterReqDTO reqDTO){
 		registrationService.registerSubject(reqDTO.getStudentId(), reqDTO.getClassId(), reqDTO.getYear(), reqDTO.getSemester());
+	}
+
+	@DeleteMapping("/delete/subject/{studentId}/{classId}")
+	public void deleteSubject(@PathVariable("studentId")Long studentId,
+		@PathVariable("classId") Long classId,
+		@RequestParam("year") Long year,
+		@RequestParam("semester") Long semester){
+		registrationService.deleteSubject(studentId, classId, year, semester);
 	}
 
 }

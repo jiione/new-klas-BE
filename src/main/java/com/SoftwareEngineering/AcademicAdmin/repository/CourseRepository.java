@@ -3,8 +3,10 @@ package com.SoftwareEngineering.AcademicAdmin.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.SoftwareEngineering.AcademicAdmin.entity.Course;
 
@@ -16,4 +18,9 @@ public interface CourseRepository extends JpaRepository<Course, Long>, CourseQue
 		+ "JOIN FETCH cs.user u "
 		+ "where u.studentId = :studentId and cs.year = :year and cs.semester = :semester")
 	List<Course> getCoursesByStudentId(@Param("studentId")Long studentId, @Param("year")Long year, @Param("semester")Long semester);
+
+	@Modifying
+	@Transactional
+	void deleteCourseBySemesterIdAndSubjectsId(Long semesterId, Long subjectsId);
+
 }

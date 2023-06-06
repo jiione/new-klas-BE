@@ -31,4 +31,6 @@ public final class ExceptionMessage {
 	public static final String ALREADY_REGISTER = "이미 등록된 강의 입니다";
 	public static final	String CLOSED_REGISTER = "만석입니다.";
 	public static final String ALREADY_TIME_REGISTER = "시간이 겹칩니다.";
+	public static final String CREDIT_EXCEED = "학점이 초과되었습니다.";
+
 }
