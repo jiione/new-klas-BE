@@ -21,7 +21,7 @@ import com.SoftwareEngineering.AcademicAdmin.exception.register.AlreadyTimeExcep
 import com.SoftwareEngineering.AcademicAdmin.exception.register.ClosedRegisterException;
 import com.SoftwareEngineering.AcademicAdmin.exception.register.CreditExceedException;
 import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
-import com.SoftwareEngineering.AcademicAdmin.exception.user.UserNotFound;
+
 import com.SoftwareEngineering.AcademicAdmin.repository.BasketRepository;
 import com.SoftwareEngineering.AcademicAdmin.repository.CourseRepository;
 import com.SoftwareEngineering.AcademicAdmin.repository.SemesterRepository;
