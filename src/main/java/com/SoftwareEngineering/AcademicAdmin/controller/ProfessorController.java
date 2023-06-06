@@ -1,16 +1,16 @@
 package com.SoftwareEngineering.AcademicAdmin.controller;
 
-import com.SoftwareEngineering.AcademicAdmin.dto.request.NoticeReqDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.request.PostReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SyllabusReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.SyllabusResDTO;
 import com.SoftwareEngineering.AcademicAdmin.service.ProfessorService;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/professor")
 public class ProfessorController {
     private final ProfessorService professorService;
 
@@ -25,7 +25,7 @@ public class ProfessorController {
     }
 
     @PostMapping("/write/post")
-    public ResponseEntity<Long> writeNotice(@RequestBody NoticeReqDTO noticeReqDTO){
-        
+    public ResponseEntity<Long> writePost(@RequestBody PostReqDTO postReqDTO){
+        return ResponseEntity.ok().body(professorService.writePost(postReqDTO));
     }
 }

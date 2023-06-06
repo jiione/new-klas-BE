@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long>, BoardRepositoryCustom {
 	@Query(value = "SELECT b "
@@ -27,6 +28,4 @@ public interface BoardRepository extends JpaRepository<Board, Long>, BoardReposi
 		+ "WHERE s.id = :classId AND b.code = 4 "
 		+ "ORDER BY p.time desc ")
 	Board findAssignmentByClassId(@Param("classId")Long classId);
-
-
 }

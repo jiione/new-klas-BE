@@ -1,9 +1,16 @@
 package com.SoftwareEngineering.AcademicAdmin.service;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.request.PostReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SyllabusReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.ScheduleDetailDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.SyllabusResDTO;
+import com.SoftwareEngineering.AcademicAdmin.entity.Board;
+import com.SoftwareEngineering.AcademicAdmin.entity.Post;
 import com.SoftwareEngineering.AcademicAdmin.entity.Subjects;
+import com.SoftwareEngineering.AcademicAdmin.exception.board.BoardNotFound;
+import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
+import com.SoftwareEngineering.AcademicAdmin.repository.BoardRepository;
+import com.SoftwareEngineering.AcademicAdmin.repository.PostRepository;
 import com.SoftwareEngineering.AcademicAdmin.repository.SubjectsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,48 +27,98 @@ import java.util.stream.Collectors;
 public class ProfessorService {
 
     private final SubjectsRepository subjectsRepository;
+
+    private final BoardRepository boardRepository;
+
+    private final PostRepository postRepository;
+
     public Long writeSyllabus(SyllabusReqDTO syllabusReqDTO) {
-        Optional<Subjects> subjects = subjectsRepository.findById(syllabusReqDTO.getSubjectId());
-        Subjects subjects1 = subjects.get();
-        subjects1 = Subjects.builder()
-                .content(syllabusReqDTO.getSubjectContent())
-                .build();
+        Optional<Subjects> subjectOptional = subjectsRepository.findById(syllabusReqDTO.getSubjectId());
+        System.out.println("aaaaaaa");
 
-        subjectsRepository.save(subjects1);
+        if(subjectOptional.isPresent()) {
+            Subjects subjects = subjectOptional.get();
 
-        return subjects1.getId();
+            subjectsRepository.save(Subjects.builder()
+                            .professor(subjects.getProfessor())
+                            .id(subjects.getId())
+                            .name(subjects.getName())
+                            .credit(subjects.getCredit())
+                            .time(subjects.getTime())
+                            .day(subjects.getDay())
+                            .code(subjects.getCode())
+                            .content(syllabusReqDTO.getSubjectContent())
+                            .year(subjects.getYear())
+                            .semester(subjects.getSemester())
+                            .personnel(subjects.getPersonnel())
+                    .build());
+
+            return subjects.getId();
+        }
+        else{
+            throw new SubjectNotFound();
+        }
+
     }
 
     public SyllabusResDTO getSyllabus(Long subjectId) {
-        Subjects subjects = subjectsRepository.findById(subjectId).get();
+        Optional<Subjects> subjectsOptional = subjectsRepository.findById(subjectId);
 
-        List<ScheduleDetailDTO> scheduleDetailDTOS = new ArrayList<>();
+        if(subjectsOptional.isPresent()) {
+            Subjects subjects = subjectsOptional.get();
+            List<ScheduleDetailDTO> scheduleDetailDTOS = new ArrayList<>();
 
-        List<Integer> days = subjects.getDay().chars()
-                .mapToObj(Character::getNumericValue)
-                .collect(Collectors.toList());
+            List<Integer> days = subjects.getDay().chars()
+                    .mapToObj(Character::getNumericValue)
+                    .collect(Collectors.toList());
 
-        String[] parts = subjects.getTime().split(",");
+            String[] parts = subjects.getTime().split(",");
 
-        for(int i =0; i<days.size();i++){
-            ScheduleDetailDTO scheduleDetailDTO = new ScheduleDetailDTO();
-            scheduleDetailDTO.setDay(days.get(i));
-            for (char ch : parts[i].toCharArray()) {
-                int digit = Character.getNumericValue(ch);
-                scheduleDetailDTO.getTime().add(digit);
+            for (int i = 0; i < days.size(); i++) {
+                ScheduleDetailDTO scheduleDetailDTO = new ScheduleDetailDTO();
+                scheduleDetailDTO.setDay(days.get(i));
+                for (char ch : parts[i].toCharArray()) {
+                    int digit = Character.getNumericValue(ch);
+                    scheduleDetailDTO.getTime().add(digit);
+                }
+
+                scheduleDetailDTOS.add(scheduleDetailDTO);
             }
 
-            scheduleDetailDTOS.add(scheduleDetailDTO);
+            return SyllabusResDTO.builder()
+                    .professor(subjects.getProfessor())
+                    .when(scheduleDetailDTOS)
+                    .code(subjects.getCode())
+                    .name(subjects.getName())
+                    .credit(subjects.getCredit())
+                    .personnel(subjects.getPersonnel())
+                    .content(subjects.getContent())
+                    .build();
+        }
+        else {
+            throw new SubjectNotFound();
+        }
+    }
+
+    public Long writePost(PostReqDTO postReqDTO) {
+        Board board = boardRepository.findBoardByCodeAndSubjectId(postReqDTO.getCode(),postReqDTO.getSubjectId());
+        if(board != null){
+            Post post = Post.builder()
+                    .view(0L)
+                    .writer(postReqDTO.getWriter())
+                    .title(postReqDTO.getTitle())
+                    .content(postReqDTO.getContent())
+                    .deadline(postReqDTO.getDeadline())
+                    .board(board)
+                    .build();
+
+            postRepository.save(post);
+
+            return post.getId();
+        }
+        else {
+            throw new BoardNotFound();
         }
 
-        return SyllabusResDTO.builder()
-                .professor(subjects.getProfessor())
-                .when(scheduleDetailDTOS)
-                .code(subjects.getCode())
-                .name(subjects.getName())
-                .credit(subjects.getCredit())
-                .personnel(subjects.getPersonnel())
-                .content(subjects.getContent())
-                .build();
     }
 }

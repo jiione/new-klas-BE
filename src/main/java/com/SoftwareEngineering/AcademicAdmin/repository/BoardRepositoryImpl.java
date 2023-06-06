@@ -41,4 +41,24 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
         return typedQuery.getResultList();
     }
 
+    @Override
+    public Board findBoardByCodeAndSubjectId(int code, Long subjectId) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Board> query = cb.createQuery(Board.class);
+        Root<Board> boardRoot = query.from(Board.class);
+
+        query.select(boardRoot)
+                .where(
+                        cb.and(
+                                cb.equal(boardRoot.get("code"), code),
+                                cb.equal(boardRoot.get("subjects").get("id"), subjectId)
+                        )
+                );
+
+        TypedQuery<Board> typedQuery = entityManager.createQuery(query);
+        typedQuery.setMaxResults(1);
+
+        return typedQuery.getSingleResult();
+    }
+
 }
