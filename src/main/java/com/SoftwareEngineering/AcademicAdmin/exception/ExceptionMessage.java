@@ -33,7 +33,11 @@ public final class ExceptionMessage {
 	public static final	String CLOSED_REGISTER = "만석입니다.";
 	public static final String ALREADY_TIME_REGISTER = "시간이 겹칩니다.";
 
+
 	//board
 
 	public static final String BOARD_NOT_FOUND = "게시판이 존재하지 않습니디ㅏ.";
+
+	public static final String CREDIT_EXCEED = "학점이 초과되었습니다.";
+
 }
