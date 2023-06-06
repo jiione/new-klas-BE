@@ -12,6 +12,7 @@ import com.SoftwareEngineering.AcademicAdmin.exception.department.DepartmentNotF
 import com.SoftwareEngineering.AcademicAdmin.exception.register.AlreadyRegisterException;
 import com.SoftwareEngineering.AcademicAdmin.exception.register.AlreadyTimeException;
 import com.SoftwareEngineering.AcademicAdmin.exception.register.ClosedRegisterException;
+import com.SoftwareEngineering.AcademicAdmin.exception.register.CreditExceedException;
 import com.SoftwareEngineering.AcademicAdmin.exception.semester.SemesterNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.user.InvalidPassword;
@@ -72,6 +73,12 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(AlreadyTimeException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ExceptionResponse alreadyTimeException(Exception e) {
+		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+	}
+
+	@ExceptionHandler(CreditExceedException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionResponse creditExceedException(Exception e) {
 		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
 	}
 }
