@@ -1,4 +1,4 @@
-package com.SoftwareEngineering.AcademicAdmin.dto.response.Lecture;
+package com.SoftwareEngineering.AcademicAdmin.dto.response.lecture;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +21,7 @@ public class LectureDTO {
 		this.classes = subjectDTOS;
 	}
 
-	public static LectureDTO from(Semester semester, Set<SubjectDTO> subjectDTOS){
+	public static LectureDTO of(Semester semester, Set<SubjectDTO> subjectDTOS){
 		return new LectureDTO(semester, subjectDTOS);
 	}
 }

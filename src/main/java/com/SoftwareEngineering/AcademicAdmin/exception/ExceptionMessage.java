@@ -23,7 +23,13 @@ public final class ExceptionMessage {
 	//semester
 	public static final String SEMESTER_NOT_FOUND = "학기가 존재하지 않습니다.";
 
-	//subjects
-	public static final String SUBJECT_NOT_FOUND = "과목이 존재하지 않습니다.";
+	//subject
+	public static final String SUBJECT_NOT_FOUND = "해당하는 과목은 존재하지 않습니다.";
+	public static final String CLASS_ID_IS_EMPTY = "과목 번호는 필수 값 입니다.";
 	public static final String CONTENT_NOT_FOUND = "내용이 존재하지 않습니다.";
+
+	//수강신청
+	public static final String ALREADY_REGISTER = "이미 등록된 강의 입니다";
+	public static final	String CLOSED_REGISTER = "만석입니다.";
+	public static final String ALREADY_TIME_REGISTER = "시간이 겹칩니다.";
 }

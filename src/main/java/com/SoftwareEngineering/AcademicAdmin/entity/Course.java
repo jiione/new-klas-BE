@@ -28,6 +28,16 @@ public class Course {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject_id")
     private Subjects subjects;
+
+    private Course (Semester semester, Subjects subjects){
+        this.score = null;
+        this.semester = semester;
+        this.subjects = subjects;
+    }
+
+    public static Course of(Semester semester, Subjects subjects){
+        return new Course(semester, subjects);
+    }
 }
 
 
