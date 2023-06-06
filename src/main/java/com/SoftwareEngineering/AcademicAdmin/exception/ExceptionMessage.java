@@ -35,9 +35,10 @@ public final class ExceptionMessage {
 
 
 	//board
-
 	public static final String BOARD_NOT_FOUND = "게시판이 존재하지 않습니디ㅏ.";
-
 	public static final String CREDIT_EXCEED = "학점이 초과되었습니다.";
+
+	//post
+	public static final String POST_NOT_FOUND = "게시글이 존재하지 않습니다.";
 
 }

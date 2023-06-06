@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.SoftwareEngineering.AcademicAdmin.exception.department.DepartmentNotFound;
+import com.SoftwareEngineering.AcademicAdmin.exception.post.PostNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.register.AlreadyRegisterException;
 import com.SoftwareEngineering.AcademicAdmin.exception.register.AlreadyTimeException;
 import com.SoftwareEngineering.AcademicAdmin.exception.register.ClosedRegisterException;
@@ -80,6 +81,12 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(CreditExceedException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ExceptionResponse creditExceedException(Exception e) {
+		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+	}
+
+	@ExceptionHandler(PostNotFound.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionResponse postNotFound(Exception e) {
 		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
 	}
 
