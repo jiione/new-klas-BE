@@ -19,7 +19,9 @@ import com.SoftwareEngineering.AcademicAdmin.entity.User;
 import com.SoftwareEngineering.AcademicAdmin.exception.register.AlreadyRegisterException;
 import com.SoftwareEngineering.AcademicAdmin.exception.register.AlreadyTimeException;
 import com.SoftwareEngineering.AcademicAdmin.exception.register.ClosedRegisterException;
+import com.SoftwareEngineering.AcademicAdmin.exception.register.CreditExceedException;
 import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
+import com.SoftwareEngineering.AcademicAdmin.exception.user.UserNotFound;
 import com.SoftwareEngineering.AcademicAdmin.repository.BasketRepository;
 import com.SoftwareEngineering.AcademicAdmin.repository.CourseRepository;
 import com.SoftwareEngineering.AcademicAdmin.repository.SemesterRepository;
@@ -91,6 +93,7 @@ public class RegistrationService {
 		validateSubject(subjects);
 
 		List<Course> courses = courseRepository.getCoursesByStudentId(studentId,year,s);
+		validateCredit(courses, subjects);
 		validateSameTime(courses, subjects);
 
 		Course course = Course.of(semester, subjects);
@@ -139,5 +142,28 @@ public class RegistrationService {
 			throw new ClosedRegisterException();
 	}
 
+	private void validateCredit(List<Course> courses, Subjects subjects){
+		Integer totalCredit = subjects.getCredit();
+		for (Course course : courses){
+			totalCredit +=  course.getSubjects().getCredit();
+		}
+
+		if (totalCredit > 22)
+			throw new CreditExceedException();
+	}
+
+	public void deleteSubject(Long studentId, Long classId, Long year, Long s){
+		lectureService.validateUser(studentId);
+		validateSubject(classId);
+
+		Semester semester = semesterRepository.findSemesterByUserAndYearAndSemester(studentId, year, s);
+		courseRepository.deleteCourseBySemesterIdAndSubjectsId(semester.getId(), classId);
+	}
+
+	public void validateSubject(Long classId){
+
+		if(!subjectsRepository.existsSubjectsById(classId))
+			throw new SubjectNotFound();
+	}
 
 }
