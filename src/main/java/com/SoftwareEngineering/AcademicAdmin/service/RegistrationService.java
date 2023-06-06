@@ -20,6 +20,7 @@ import com.SoftwareEngineering.AcademicAdmin.exception.register.AlreadyRegisterE
 import com.SoftwareEngineering.AcademicAdmin.exception.register.AlreadyTimeException;
 import com.SoftwareEngineering.AcademicAdmin.exception.register.ClosedRegisterException;
 import com.SoftwareEngineering.AcademicAdmin.exception.register.CreditExceedException;
+import com.SoftwareEngineering.AcademicAdmin.exception.semester.SemesterNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
 
 import com.SoftwareEngineering.AcademicAdmin.repository.BasketRepository;
@@ -156,7 +157,7 @@ public class RegistrationService {
 		lectureService.validateUser(studentId);
 		validateSubject(classId);
 
-		Semester semester = semesterRepository.findSemesterByUserAndYearAndSemester(studentId, year, s);
+		Semester semester = getSemester(studentId, year, s);
 		courseRepository.deleteCourseBySemesterIdAndSubjectsId(semester.getId(), classId);
 	}
 
@@ -164,6 +165,13 @@ public class RegistrationService {
 
 		if(!subjectsRepository.existsSubjectsById(classId))
 			throw new SubjectNotFound();
+	}
+
+	public Semester getSemester(Long studentId, Long year, Long s){
+		Semester semester = semesterRepository.findSemesterByUserAndYearAndSemester(studentId, year, s);
+		if (semester == null)
+			throw new SemesterNotFound();
+		else return semester;
 	}
 
 }
