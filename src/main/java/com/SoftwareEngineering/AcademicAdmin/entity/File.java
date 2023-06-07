@@ -21,6 +21,12 @@ public class File {
     private Long id;
 
     @Column(nullable = false)
+    private String title;
+
+    @Column(name="student_id")
+    private Long studentId;
+
+    @Column(nullable = false)
     private String fileName;
 
     @Lob
