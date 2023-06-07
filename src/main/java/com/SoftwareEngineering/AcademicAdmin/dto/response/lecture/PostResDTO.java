@@ -1,5 +1,6 @@
 package com.SoftwareEngineering.AcademicAdmin.dto.response.lecture;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.SoftwareEngineering.AcademicAdmin.entity.Post;
@@ -12,14 +13,14 @@ public class PostResDTO {
 	private String title;
 	private String content;
 	private String writer;
-	private LocalDateTime time;
+	private LocalDate time;
 	private Long view;
 
 	private PostResDTO(Post post){
 		this.title = post.getTitle();
 		this.content = post.getContent();
 		this.writer = post.getWriter();
-		this.time = post.getTime();
+		this.time = post.getTime().toLocalDate();
 		this.view = post.getView();
 	}
 
