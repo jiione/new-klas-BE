@@ -1,17 +1,14 @@
 package com.SoftwareEngineering.AcademicAdmin.service;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.request.GradeReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.PostReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SyllabusReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.ScheduleDetailDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.SyllabusResDTO;
-import com.SoftwareEngineering.AcademicAdmin.entity.Board;
-import com.SoftwareEngineering.AcademicAdmin.entity.Post;
-import com.SoftwareEngineering.AcademicAdmin.entity.Subjects;
+import com.SoftwareEngineering.AcademicAdmin.entity.*;
 import com.SoftwareEngineering.AcademicAdmin.exception.board.BoardNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
-import com.SoftwareEngineering.AcademicAdmin.repository.BoardRepository;
-import com.SoftwareEngineering.AcademicAdmin.repository.PostRepository;
-import com.SoftwareEngineering.AcademicAdmin.repository.SubjectsRepository;
+import com.SoftwareEngineering.AcademicAdmin.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +16,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +29,10 @@ public class ProfessorService {
     private final BoardRepository boardRepository;
 
     private final PostRepository postRepository;
+
+    private final UserRepository userRepository;
+
+    private final CourseRepository courseRepository;
 
     public Long writeSyllabus(SyllabusReqDTO syllabusReqDTO) {
         Optional<Subjects> subjectOptional = subjectsRepository.findById(syllabusReqDTO.getSubjectId());
@@ -119,6 +121,25 @@ public class ProfessorService {
         else {
             throw new BoardNotFound();
         }
+    }
 
+    public Long giveGrade(GradeReqDTO gradeReqDTO){
+        User user = userRepository.getUserByStudentId(gradeReqDTO.getStudentId());
+        Semester semester = user.getLatestSemester();
+        Set<Course> courses = semester.getCourses();
+
+        for(Course course : courses){
+            if(course.getSubjects().getId()==gradeReqDTO.getSubjectId()){
+                courseRepository.save(Course.builder()
+                                .id(course.getId())
+                                .score(gradeReqDTO.getScore())
+                                .semester(course.getSemester())
+                                .subjects(course.getSubjects())
+                        .build());
+                return course.getId();
+            }
+        }
+
+        return -1L;
     }
 }
