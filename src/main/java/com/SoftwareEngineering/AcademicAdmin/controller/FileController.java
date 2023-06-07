@@ -24,8 +24,8 @@ public class FileController {
 
     private final FileRepository fileRepository;
 
-    @PostMapping("/upload")
-    public ResponseEntity<File> uploadFile(@RequestParam("file") MultipartFile file, @RequestBody FileReqDTO fileReqDTO) throws IOException {
+    @PostMapping(value = "/upload",consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<File> uploadFile(@RequestPart("file") MultipartFile file, @RequestPart FileReqDTO fileReqDTO) throws IOException {
         File uploadedFile = fileService.uploadFile(file,fileReqDTO);
         return ResponseEntity.ok(uploadedFile);
     }
