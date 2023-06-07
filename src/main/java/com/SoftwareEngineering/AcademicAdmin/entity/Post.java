@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -38,6 +40,9 @@ public class Post {
     private Board board;
 
     private LocalDateTime deadline;
+
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    private List<File> file = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
