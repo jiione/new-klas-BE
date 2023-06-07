@@ -79,7 +79,7 @@ public class StudentMainService {
         Set<Semester> semesters = user.getSemesters();
         Semester sem = null;
         for (Semester s : semesters) {
-            if (s.getYear() == year && s.getSemester() == semester) {
+            if (s.getYear().equals(year) && s.getSemester().equals(semester)) {
                 sem = s;
                 break;
             }
