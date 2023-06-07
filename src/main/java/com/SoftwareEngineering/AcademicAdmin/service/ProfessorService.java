@@ -36,7 +36,6 @@ public class ProfessorService {
 
     public Long writeSyllabus(SyllabusReqDTO syllabusReqDTO) {
         Optional<Subjects> subjectOptional = subjectsRepository.findById(syllabusReqDTO.getSubjectId());
-        System.out.println("aaaaaaa");
 
         if(subjectOptional.isPresent()) {
             Subjects subjects = subjectOptional.get();
