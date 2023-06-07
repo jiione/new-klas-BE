@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.response.ScheduleDetailDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentDetailDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentResDTO;
@@ -19,6 +20,8 @@ import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.NoticeResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.PostResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.ProfessorDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.SubjectDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.registration.SearchDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.registration.SearchResDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.Board;
 import com.SoftwareEngineering.AcademicAdmin.entity.Course;
 import com.SoftwareEngineering.AcademicAdmin.entity.Post;
@@ -147,5 +150,12 @@ public class LectureService {
 		post.updateView();
 		return DataResDTO.from(post);
 
+	}
+
+	public PostResDTO getPlanning(Long studentId, Long classId){
+		validateUser(studentId);
+		Post post = postRepository.findPostBySubjectId(classId);
+		post.updateView();
+		return PostResDTO.from(post);
 	}
 }

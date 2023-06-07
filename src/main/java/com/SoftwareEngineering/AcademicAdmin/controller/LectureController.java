@@ -3,6 +3,7 @@ package com.SoftwareEngineering.AcademicAdmin.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentDetailDTO;
@@ -12,7 +13,9 @@ import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.LectureResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.NoticeResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.PostResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.ProfessorDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.registration.SearchResDTO;
 import com.SoftwareEngineering.AcademicAdmin.service.LectureService;
+import com.SoftwareEngineering.AcademicAdmin.service.RegistrationService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 public class LectureController {
 	private final LectureService lectureService;
+	private final RegistrationService registrationService;
 
 	@GetMapping("/lecture/{studentId}")
 	public LectureResDTO getLecture(@PathVariable("studentId") Long studentId) {
@@ -44,7 +48,7 @@ public class LectureController {
 		return lectureService.getProfessor(classId);
 	}
 
-	@GetMapping("/post/{postId}")
+	@GetMapping("/notice/{postId}")
 	public PostResDTO getNoticeDetail(@PathVariable("postId")Long postId){
 		return lectureService.getNoticeDetail(postId);
 	}
@@ -57,5 +61,19 @@ public class LectureController {
 	@GetMapping("/data/{postId}")
 	public DataResDTO getDataDetail(@PathVariable("postId")Long postId){
 		return lectureService.getDataDetail(postId);
+	}
+
+	@GetMapping("/planning/{studentId}")
+	public SearchResDTO getPlanning(@PathVariable("studentId")Long studentId,
+		@RequestParam("year") Long year,
+		@RequestParam("semester") Long semester,
+		@RequestParam("search")String search){
+		return registrationService.getSearchSubject(studentId, year, semester, search);
+	}
+
+	@GetMapping("/planning/{studentId}/{classId}")
+	public PostResDTO getPlanningDetail(@PathVariable("studentId")Long studentId,
+		@PathVariable("classId")Long classId){
+		return lectureService.getPlanning(studentId, classId);
 	}
 }
