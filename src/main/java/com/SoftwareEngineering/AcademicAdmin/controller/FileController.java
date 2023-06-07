@@ -1,5 +1,6 @@
 package com.SoftwareEngineering.AcademicAdmin.controller;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.request.FileReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.File;
 import com.SoftwareEngineering.AcademicAdmin.repository.FileRepository;
 import com.SoftwareEngineering.AcademicAdmin.service.FileService;
@@ -24,8 +25,8 @@ public class FileController {
     private final FileRepository fileRepository;
 
     @PostMapping("/upload")
-    public ResponseEntity<File> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("postId") Long id) throws IOException {
-        File uploadedFile = fileService.uploadFile(file,id);
+    public ResponseEntity<File> uploadFile(@RequestParam("file") MultipartFile file, @RequestBody FileReqDTO fileReqDTO) throws IOException {
+        File uploadedFile = fileService.uploadFile(file,fileReqDTO);
         return ResponseEntity.ok(uploadedFile);
     }
 

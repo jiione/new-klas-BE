@@ -20,6 +20,12 @@ public class File {
     @Column(name = "file_id")
     private Long id;
 
+    @Column(nullable = false)
+    private String title;
+
+    @Column(name="student_id")
+    private Long studentId;
+
     @Column(name = "file_name", nullable = false)
     private String fileName;
 

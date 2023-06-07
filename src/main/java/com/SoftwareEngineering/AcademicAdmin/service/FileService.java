@@ -1,5 +1,6 @@
 package com.SoftwareEngineering.AcademicAdmin.service;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.request.FileReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.File;
 import com.SoftwareEngineering.AcademicAdmin.entity.Post;
 import com.SoftwareEngineering.AcademicAdmin.exception.post.PostNotFound;
@@ -22,14 +23,16 @@ public class FileService {
 
     private final PostRepository postRepository;
 
-    public File uploadFile(MultipartFile multipartFile, Long id) throws IOException {
-        Optional<Post> postOptional = postRepository.findById(id);
+    public File uploadFile(MultipartFile multipartFile, FileReqDTO fileReqDTO) throws IOException {
+        Optional<Post> postOptional = postRepository.findById(fileReqDTO.getPostId());
         if(postOptional.isPresent()){
             // 파일 메타데이터 저장
             File file = File.builder()
                     .fileName(multipartFile.getName())
                     .fileData(multipartFile.getBytes())
                     .post(postOptional.get())
+                    .studentId(fileReqDTO.getStudentId())
+                    .title(fileReqDTO.getTitle())
                     .build();
             fileRepository.save(file);
 
