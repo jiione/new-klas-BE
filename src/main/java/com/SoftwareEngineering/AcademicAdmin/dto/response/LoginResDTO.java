@@ -6,13 +6,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class LoginResDTO {
-	Long userId;
-
-	private LoginResDTO(Long id){
-		this.userId = id;
+	Integer role;
+	//0 학생
+	//1 교수
+	private LoginResDTO(Integer role){
+		this.role = role;
 	}
 
-	public static LoginResDTO from(Long id){
-		return new LoginResDTO(id);
+	public static LoginResDTO from(Integer role){
+		return new LoginResDTO(role);
 	}
 }

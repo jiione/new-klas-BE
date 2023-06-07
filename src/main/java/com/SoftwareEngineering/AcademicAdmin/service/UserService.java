@@ -30,7 +30,7 @@ public class UserService {
 	public LoginResDTO login(LoginReqDTO loginReqDTO){
 		User user = getUser(loginReqDTO.getStudentId());
 		validateUser(user, loginReqDTO.getPassword());
-		return LoginResDTO.from(user.getId());
+		return LoginResDTO.from(user.getRole().equals("학생") ?  0 : 1);
 	}
 
 	private void validateUser (User user, String password){
