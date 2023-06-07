@@ -23,7 +23,7 @@ public class FileService {
 
     private final PostRepository postRepository;
 
-    public File uploadFile(MultipartFile multipartFile, FileReqDTO fileReqDTO) throws IOException {
+    public void uploadFile(MultipartFile multipartFile, FileReqDTO fileReqDTO) throws IOException {
         Optional<Post> postOptional = postRepository.findById(fileReqDTO.getPostId());
         if(postOptional.isPresent()){
             // 파일 메타데이터 저장
@@ -35,8 +35,6 @@ public class FileService {
                     .title(fileReqDTO.getTitle())
                     .build();
             fileRepository.save(file);
-
-            return file;
         }
         else {
             throw new PostNotFound();
