@@ -74,12 +74,12 @@ public class StudentMainService {
         return semesterList;
     }
 
-    public List<ScheduleResDTO> getStudentSchedule(Long studentId, String semester) {
+    public List<ScheduleResDTO> getStudentSchedule(Long studentId, Long year, Long semester) {
         User user = userRepository.getUserByStudentId(studentId);
         Set<Semester> semesters = user.getSemesters();
         Semester sem = null;
         for (Semester s : semesters) {
-            if (s.getName().equals(semester)) {
+            if (s.getYear() == year && s.getSemester() == semester) {
                 sem = s;
                 break;
             }
@@ -89,10 +89,10 @@ public class StudentMainService {
 
         Set<Course> courses = sem.getCourses();
 
-        List<ScheduleResDTO>  scheduleResDTOS = new ArrayList<>();
+        List<ScheduleResDTO> scheduleResDTOS = new ArrayList<>();
 
-        for(Course course : courses){
-            Subjects subjects=course.getSubjects();
+        for (Course course : courses) {
+            Subjects subjects = course.getSubjects();
             List<ScheduleDetailDTO> scheduleDetailDTOS = getScheduleDetail(subjects);
 
             ScheduleResDTO scheduleResDTO = ScheduleResDTO.builder()
@@ -108,12 +108,12 @@ public class StudentMainService {
 
     }
 
-    public List<ScheduleDetailDTO> getScheduleDetail(Subjects subjects){
+    public List<ScheduleDetailDTO> getScheduleDetail(Subjects subjects) {
         List<ScheduleDetailDTO> scheduleDetailDTOS = new ArrayList<>();
         List<Integer> days = getDays(subjects);
         String[] parts = subjects.getTime().split(",");
 
-        for(int i =0; i<days.size();i++){
+        for (int i = 0; i < days.size(); i++) {
             ScheduleDetailDTO scheduleDetailDTO = new ScheduleDetailDTO();
             scheduleDetailDTO.setDay(days.get(i));
 
@@ -128,9 +128,9 @@ public class StudentMainService {
         return scheduleDetailDTOS;
     }
 
-    private List<Integer> getDays(Subjects subjects){
+    private List<Integer> getDays(Subjects subjects) {
         return subjects.getDay().chars()
-            .mapToObj(Character::getNumericValue)
-            .collect(Collectors.toList());
+                .mapToObj(Character::getNumericValue)
+                .collect(Collectors.toList());
     }
 }
