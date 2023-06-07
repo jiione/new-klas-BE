@@ -28,7 +28,7 @@ public class StudentMainController {
     }
 
     @GetMapping("/schedule")
-    public ResponseEntity<List<ScheduleResDTO>> getSchedule(@RequestParam Long studentId, @RequestParam String semester){
-        return ResponseEntity.ok().body(studentMainService.getStudentSchedule(studentId,semester));
+    public ResponseEntity<List<ScheduleResDTO>> getSchedule(@RequestParam Long studentId, @RequestParam Long semester, @RequestParam Long year){
+        return ResponseEntity.ok().body(studentMainService.getStudentSchedule(studentId,year,semester));
     }
 }
