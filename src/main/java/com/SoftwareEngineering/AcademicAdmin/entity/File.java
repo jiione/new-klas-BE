@@ -26,11 +26,11 @@ public class File {
     @Column(name="student_id")
     private Long studentId;
 
-    @Column(nullable = false)
+    @Column(name = "file_name", nullable = false)
     private String fileName;
 
     @Lob
-    @Column(nullable = false)
+    @Column(name = "file_data", nullable = false)
     private byte[] fileData;
 
     @ManyToOne(fetch = FetchType.LAZY)
