@@ -1,5 +1,6 @@
 package com.SoftwareEngineering.AcademicAdmin.controller;
 
+import com.SoftwareEngineering.AcademicAdmin.dto.request.GradeReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.PostReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SyllabusReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.SyllabusResDTO;
@@ -27,5 +28,10 @@ public class ProfessorController {
     @PostMapping("/write/post")
     public ResponseEntity<Long> writePost(@RequestBody PostReqDTO postReqDTO){
         return ResponseEntity.ok().body(professorService.writePost(postReqDTO));
+    }
+
+    @PostMapping("/give/grade")
+    public ResponseEntity<Long> giveGrade(@RequestBody GradeReqDTO gradeReqDTO){
+        return ResponseEntity.ok().body(professorService.giveGrade(gradeReqDTO));
     }
 }
