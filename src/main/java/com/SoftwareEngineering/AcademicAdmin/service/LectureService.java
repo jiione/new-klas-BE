@@ -88,6 +88,8 @@ public class LectureService {
 	private NoticeResDTO getNoticeList(Long classId){
 
 		Board board = boardRepository.findNoticeByClassId(classId);
+		if(board == null)
+			return null;
 		List<Post> posts =  board.getPosts();
 
 		List<NoticeDTO> noticeDTOS = posts.stream()
@@ -106,6 +108,8 @@ public class LectureService {
 	private AssignmentResDTO getAssignmentList(Long classId){
 
 		Board board = boardRepository.findAssignmentByClassId(classId);
+		if(board == null)
+			return null;
 		List<Post> posts =  board.getPosts();
 
 		List<AssignmentDTO> assignmentDTOS = posts.stream()
