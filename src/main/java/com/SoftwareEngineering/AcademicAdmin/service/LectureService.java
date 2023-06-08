@@ -8,10 +8,11 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.SoftwareEngineering.AcademicAdmin.dto.response.ScheduleDetailDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentDetailDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.DataDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.DataDetailDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.DataResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.LectureDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.LectureResDTO;
@@ -20,8 +21,6 @@ import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.NoticeResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.PostResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.ProfessorDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.SubjectDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.registration.SearchDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.registration.SearchResDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.Board;
 import com.SoftwareEngineering.AcademicAdmin.entity.Course;
 import com.SoftwareEngineering.AcademicAdmin.entity.File;
@@ -159,10 +158,14 @@ public class LectureService {
 		return "http://localhost:8080/file/download/" + id;
 	}
 
-	public DataResDTO getDataDetail(Long postId){
-		Post post = findPostOrElseThrow(postId);
-		post.updateView();
-		return DataResDTO.from(post);
+	public DataDetailDTO getDataDetail(Long postId){
+
+		List<File> files = fileRepository.findFilesByPostId(postId);
+		if (files.size() == 0) {
+			Post samePost = findPostOrElseThrow(postId);
+			return DataDetailDTO.of(samePost, -1,null, null);
+		}
+		return DataDetailDTO.of(files.get(0).getPost(), 1, getLink(files.get(0).getId()), files.get(0).getFileName());
 
 	}
 
@@ -171,5 +174,23 @@ public class LectureService {
 		Post post = postRepository.findPostBySubjectId(classId);
 		post.updateView();
 		return PostResDTO.from(post);
+	}
+
+	public DataResDTO getData(Long studentId, Long classId){
+		validateUser(studentId);
+		return getDataList(classId);
+	}
+
+	public DataResDTO getDataList(Long classId){
+		Board board = boardRepository.findDataByClassId(classId);
+		if(board == null)
+			return null;
+		List<Post> posts =  board.getPosts();
+
+		List<DataDTO> dataDTOS = posts.stream()
+			.map(DataDTO::from)
+			.collect(Collectors.toList());
+
+		return DataResDTO.from(dataDTOS);
 	}
 }
