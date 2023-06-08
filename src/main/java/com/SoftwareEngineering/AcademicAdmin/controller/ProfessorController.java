@@ -2,6 +2,7 @@ package com.SoftwareEngineering.AcademicAdmin.controller;
 
 import com.SoftwareEngineering.AcademicAdmin.dto.request.GradeReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.PostReqDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.request.PostUpdateReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SyllabusReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.CourseListResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.SyllabusResDTO;
@@ -31,6 +32,17 @@ public class ProfessorController {
     @PostMapping("/write/post")
     public ResponseEntity<Long> writePost(@RequestBody PostReqDTO postReqDTO){
         return ResponseEntity.ok().body(professorService.writePost(postReqDTO));
+    }
+
+    
+    @PatchMapping("/update/post")
+    public ResponseEntity<Long> updatePost(@RequestBody PostUpdateReqDTO postUpdateReqDTO){
+        return ResponseEntity.ok().body(professorService.updatePost(postUpdateReqDTO));
+    }
+
+    @DeleteMapping("/delete/post")
+    public void deletePost(@RequestParam Long postId){
+        professorService.deletePost(postId);
     }
 
     @PostMapping("/give/grade")

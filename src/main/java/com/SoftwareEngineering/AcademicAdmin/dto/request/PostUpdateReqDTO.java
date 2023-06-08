@@ -8,16 +8,13 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-public class PostReqDTO {
-
-    private Long subjectId;
-
-    private Integer code;
+public class PostUpdateReqDTO {
+    private Long postId;
 
     private String title;
+
     private String content;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime deadline;
-
 }
