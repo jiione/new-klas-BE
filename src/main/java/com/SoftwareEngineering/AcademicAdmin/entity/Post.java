@@ -52,4 +52,10 @@ public class Post {
     public void updateView(){
         this.view += 1;
     }
+
+    public void updatePost(String title, String content, LocalDateTime deadline){
+        this.title = title;
+        this.content = content;
+        this.deadline = deadline;
+    }
 }

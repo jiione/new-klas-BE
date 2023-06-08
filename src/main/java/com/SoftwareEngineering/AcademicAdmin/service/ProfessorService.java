@@ -2,12 +2,14 @@ package com.SoftwareEngineering.AcademicAdmin.service;
 
 import com.SoftwareEngineering.AcademicAdmin.dto.request.GradeReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.PostReqDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.request.PostUpdateReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SyllabusReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.CourseListResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.ScheduleDetailDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.SyllabusResDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.*;
 import com.SoftwareEngineering.AcademicAdmin.exception.board.BoardNotFound;
+import com.SoftwareEngineering.AcademicAdmin.exception.post.PostNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
 import com.SoftwareEngineering.AcademicAdmin.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -104,10 +106,13 @@ public class ProfessorService {
 
     public Long writePost(PostReqDTO postReqDTO) {
         Board board = boardRepository.findBoardByCodeAndSubjectId(postReqDTO.getCode(),postReqDTO.getSubjectId());
+
         if(board != null){
+            Optional<Subjects> subjects = subjectsRepository.findById(postReqDTO.getSubjectId());
+
             Post post = Post.builder()
                     .view(0L)
-                    .writer(postReqDTO.getWriter())
+                    .writer(subjects.get().getProfessor())
                     .title(postReqDTO.getTitle())
                     .content(postReqDTO.getContent())
                     .deadline(postReqDTO.getDeadline())
@@ -165,5 +170,22 @@ public class ProfessorService {
         }
 
         return courseListResDTOS;
+    }
+
+    public Long updatePost(PostUpdateReqDTO postUpdateReqDTO) {
+        Optional<Post> postOptional = postRepository.findById(postUpdateReqDTO.getPostId());
+
+        if(postOptional.isPresent()){
+            Post post = postOptional.get();
+            post.updatePost(postUpdateReqDTO.getTitle(), postUpdateReqDTO.getContent(), postUpdateReqDTO.getDeadline());
+            return post.getId();
+        }
+        else{
+            throw new PostNotFound();
+        }
+    }
+
+    public void deletePost(Long id){
+        postRepository.deleteById(id);
     }
 }
