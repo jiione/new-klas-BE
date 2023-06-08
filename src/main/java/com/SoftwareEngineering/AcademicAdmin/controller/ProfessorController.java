@@ -34,6 +34,7 @@ public class ProfessorController {
         return ResponseEntity.ok().body(professorService.writePost(postReqDTO));
     }
 
+    
     @PatchMapping("/update/post")
     public ResponseEntity<Long> updatePost(@RequestBody PostUpdateReqDTO postUpdateReqDTO){
         return ResponseEntity.ok().body(professorService.updatePost(postUpdateReqDTO));
