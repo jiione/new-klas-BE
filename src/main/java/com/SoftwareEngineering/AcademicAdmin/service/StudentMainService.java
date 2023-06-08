@@ -96,6 +96,7 @@ public class StudentMainService {
             List<ScheduleDetailDTO> scheduleDetailDTOS = getScheduleDetail(subjects);
 
             ScheduleResDTO scheduleResDTO = ScheduleResDTO.builder()
+                    .classId(subjects.getId())
                     .className(subjects.getName())
                     .professor(subjects.getProfessor())
                     .when(scheduleDetailDTOS)
