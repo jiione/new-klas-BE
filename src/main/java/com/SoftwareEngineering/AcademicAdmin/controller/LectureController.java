@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentDetailDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.AssignmentResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.DataDetailDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.DataResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.LectureResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.lecture.NoticeResDTO;
@@ -53,13 +54,14 @@ public class LectureController {
 		return lectureService.getNoticeDetail(postId);
 	}
 
-	@GetMapping("/assignment/{postId}")
-	public AssignmentDetailDTO getAssignmentDetail(@PathVariable("postId")Long postId){
-		return lectureService.getAssignmentDetail(postId);
+	@GetMapping("/assignment/detail/{postId}/{studentId}")
+	public AssignmentDetailDTO getAssignmentDetail(@PathVariable("postId")Long postId,
+		@PathVariable("studentId")Long studentId){
+		return lectureService.getAssignmentDetail(postId, studentId);
 	}
 
-	@GetMapping("/data/{postId}")
-	public DataResDTO getDataDetail(@PathVariable("postId")Long postId){
+	@GetMapping("/data/detail/{postId}")
+	public DataDetailDTO getDataDetail(@PathVariable("postId")Long postId){
 		return lectureService.getDataDetail(postId);
 	}
 
@@ -76,4 +78,10 @@ public class LectureController {
 		@PathVariable("classId")Long classId){
 		return lectureService.getPlanning(studentId, classId);
 	}
+
+	@GetMapping("/data/{studentId}/{classId}")
+	public DataResDTO getData(@PathVariable("studentId")Long studentId, @PathVariable("classId")Long classId){
+		return lectureService.getData(studentId, classId);
+	}
+
 }

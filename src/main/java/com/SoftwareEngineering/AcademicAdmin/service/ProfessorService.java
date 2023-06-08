@@ -188,4 +188,5 @@ public class ProfessorService {
     public void deletePost(Long id){
         postRepository.deleteById(id);
     }
+
 }

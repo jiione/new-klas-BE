@@ -13,6 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class ScheduleResDTO {
+    private Long classId;
+
     private String className;
 
     private String professor;
