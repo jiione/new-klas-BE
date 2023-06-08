@@ -28,4 +28,12 @@ public interface BoardRepository extends JpaRepository<Board, Long>, BoardReposi
 		+ "WHERE s.id = :classId AND b.code = 3 "
 		+ "ORDER BY p.time desc ")
 	Board findAssignmentByClassId(@Param("classId")Long classId);
+
+	@Query(value = "SELECT b "
+		+ "FROM Board b "
+		+ "JOIN FETCH b.subjects s "
+		+ "JOIN FETCH b.posts p "
+		+ "WHERE s.id = :classId AND b.code = 1 "
+		+ "ORDER BY p.time desc ")
+	Board findDataByClassId(@Param("classId")Long classId);
 }
