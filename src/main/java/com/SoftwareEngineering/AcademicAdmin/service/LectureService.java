@@ -24,6 +24,7 @@ import com.SoftwareEngineering.AcademicAdmin.dto.response.registration.SearchDTO
 import com.SoftwareEngineering.AcademicAdmin.dto.response.registration.SearchResDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.Board;
 import com.SoftwareEngineering.AcademicAdmin.entity.Course;
+import com.SoftwareEngineering.AcademicAdmin.entity.File;
 import com.SoftwareEngineering.AcademicAdmin.entity.Post;
 import com.SoftwareEngineering.AcademicAdmin.entity.Semester;
 import com.SoftwareEngineering.AcademicAdmin.entity.Subjects;
@@ -32,6 +33,7 @@ import com.SoftwareEngineering.AcademicAdmin.exception.post.PostNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.user.UserNotFound;
 import com.SoftwareEngineering.AcademicAdmin.repository.BoardRepository;
+import com.SoftwareEngineering.AcademicAdmin.repository.FileRepository;
 import com.SoftwareEngineering.AcademicAdmin.repository.PostRepository;
 import com.SoftwareEngineering.AcademicAdmin.repository.SubjectsRepository;
 import com.SoftwareEngineering.AcademicAdmin.repository.UserRepository;
@@ -46,6 +48,7 @@ public class LectureService {
 	private final BoardRepository boardRepository;
 	private final SubjectsRepository subjectsRepository;
 	private final PostRepository postRepository;
+	private final FileRepository fileRepository;
 
 	public LectureResDTO getLecture(Long studentId){
 
@@ -141,12 +144,19 @@ public class LectureService {
 			.orElseThrow(PostNotFound::new);
 	}
 
-	public AssignmentDetailDTO getAssignmentDetail(Long postId){
-		Post post = findPostOrElseThrow(postId);
+	public AssignmentDetailDTO getAssignmentDetail(Long postId, Long studentId){
+		List<File> files =  fileRepository.findFilesByStudentId(postId, studentId);
+		if (files.size() == 0) {
+			Post samePost = findPostOrElseThrow(postId);
+			return AssignmentDetailDTO.of(samePost, -1L,null, null);
+		}
 		// 과제 제출 여부 알아야함
 		// 과제 있으면 과제 보이도록
-		post.updateView();
-		return AssignmentDetailDTO.of(post);
+		return AssignmentDetailDTO.of(files.get(0).getPost(), 1L, getLink(files.get(0).getId()), files.get(0).getFileName());
+	}
+
+	private String getLink(Long id){
+		return "http://localhost:8080/file/download/" + id;
 	}
 
 	public DataResDTO getDataDetail(Long postId){

@@ -14,20 +14,22 @@ public class AssignmentDetailDTO {
 	private String writer;
 	private LocalDateTime time;
 	private LocalDateTime deadline;
-	private Long view;
-	private Boolean isSubmit;
-	private String file;
+	private Long result;
+	private String link;
+	private String fileName;
 
-	private AssignmentDetailDTO(Post post){
+	private AssignmentDetailDTO(Post post, Long result, String link, String fileName){
 		this.title = post.getTitle();
 		this.content = post.getContent();
 		this.writer = post.getWriter();
 		this.time = post.getTime();
-		this.view = post.getView();
 		this.deadline = post.getDeadline();
+		this.result = result;
+		this.link = link;
+		this.fileName = fileName;
 	}
 
-	public static AssignmentDetailDTO of(Post post){
-		return new AssignmentDetailDTO(post);
+	public static AssignmentDetailDTO of(Post post, Long result, String link, String fileName){
+		return new AssignmentDetailDTO(post, result, link, fileName);
 	}
 }
