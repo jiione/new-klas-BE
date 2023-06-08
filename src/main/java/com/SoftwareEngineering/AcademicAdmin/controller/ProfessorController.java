@@ -3,12 +3,15 @@ package com.SoftwareEngineering.AcademicAdmin.controller;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.GradeReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.PostReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SyllabusReqDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.CourseListResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.SyllabusResDTO;
 import com.SoftwareEngineering.AcademicAdmin.service.ProfessorService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,5 +36,10 @@ public class ProfessorController {
     @PostMapping("/give/grade")
     public ResponseEntity<Long> giveGrade(@RequestBody GradeReqDTO gradeReqDTO){
         return ResponseEntity.ok().body(professorService.giveGrade(gradeReqDTO));
+    }
+
+    @GetMapping("/course/list")
+    public ResponseEntity<List<CourseListResDTO>> getCourseStudentList(@RequestParam Long classId){
+        return ResponseEntity.ok().body(professorService.getCourseStudentList(classId));
     }
 }

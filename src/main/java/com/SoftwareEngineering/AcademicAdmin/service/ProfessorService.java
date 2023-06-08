@@ -3,6 +3,7 @@ package com.SoftwareEngineering.AcademicAdmin.service;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.GradeReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.PostReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SyllabusReqDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.CourseListResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.ScheduleDetailDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.SyllabusResDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.*;
@@ -140,5 +141,29 @@ public class ProfessorService {
         }
 
         return -1L;
+    }
+
+    public List<CourseListResDTO> getCourseStudentList(Long classId) {
+        List<User> users = userRepository.getUserBySubjectId(classId);
+        List<CourseListResDTO> courseListResDTOS = new ArrayList<>();
+        for(User user : users){
+            Set<Course> courses =user.getLatestSemester().getCourses();
+            String score=null;
+
+            for(Course course : courses){
+                if(course.getSubjects().getId().equals(classId)){
+                    score = course.getScore();
+                    break;
+                }
+            }
+
+            courseListResDTOS.add(CourseListResDTO.builder()
+                    .studentId(user.getStudentId())
+                    .studentName(user.getName())
+                    .studentScore(score)
+                    .build());
+        }
+
+        return courseListResDTOS;
     }
 }
