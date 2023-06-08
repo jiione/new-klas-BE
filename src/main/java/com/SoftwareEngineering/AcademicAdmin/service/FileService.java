@@ -28,7 +28,7 @@ public class FileService {
         if(postOptional.isPresent()){
             // 파일 메타데이터 저장
             File file = File.builder()
-                    .fileName(multipartFile.getName())
+                    .fileName(multipartFile.getOriginalFilename())
                     .fileData(multipartFile.getBytes())
                     .post(postOptional.get())
                     .studentId(fileReqDTO.getStudentId())
