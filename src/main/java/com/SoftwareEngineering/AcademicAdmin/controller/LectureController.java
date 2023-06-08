@@ -53,9 +53,10 @@ public class LectureController {
 		return lectureService.getNoticeDetail(postId);
 	}
 
-	@GetMapping("/assignment/{postId}")
-	public AssignmentDetailDTO getAssignmentDetail(@PathVariable("postId")Long postId){
-		return lectureService.getAssignmentDetail(postId);
+	@GetMapping("/assignment/detail/{postId}/{studentId}")
+	public AssignmentDetailDTO getAssignmentDetail(@PathVariable("postId")Long postId,
+		@PathVariable("studentId")Long studentId){
+		return lectureService.getAssignmentDetail(postId, studentId);
 	}
 
 	@GetMapping("/data/{postId}")
