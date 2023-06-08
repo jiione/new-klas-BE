@@ -14,4 +14,11 @@ public interface FileRepository extends JpaRepository<File, Long> {
 		+ "WHERE p.id =:postId AND f.studentId =:studentId "
 		+ "ORDER BY f.id desc ")
 	List<File> findFilesByStudentId(@Param("postId")Long postId, @Param("studentId")Long studentId);
+
+	@Query(value = "SELECT f "
+		+ "FROM File f "
+		+ "JOIN FETCH f.post p "
+		+ "WHERE p.id =:postId  "
+		+ "ORDER BY f.id desc ")
+	List<File> findFilesByPostId(@Param("postId")Long postId);
 }
