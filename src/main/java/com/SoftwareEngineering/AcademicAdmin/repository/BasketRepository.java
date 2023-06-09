@@ -12,9 +12,7 @@ public interface BasketRepository extends JpaRepository<Basket, Long> {
 
 	@Query(value = "SELECT b "
 		+ "FROM Basket b "
-		+ "JOIN FETCH b.subjects s "
-		+ "JOIN FETCH b.user u "
-		+ "WHERE u.studentId =:studentId")
-	List<Basket> findBasketByStudentId(@Param("studentId")Long studentId);
+		+ "JOIN FETCH b.subjects s ")
+	List<Basket> findBasketByStudentId();
 
 }
