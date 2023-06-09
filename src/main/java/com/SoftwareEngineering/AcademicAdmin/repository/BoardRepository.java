@@ -36,4 +36,6 @@ public interface BoardRepository extends JpaRepository<Board, Long>, BoardReposi
 		+ "WHERE s.id = :classId AND b.code = 1 "
 		+ "ORDER BY p.time desc ")
 	Board findDataByClassId(@Param("classId")Long classId);
+
+
 }
