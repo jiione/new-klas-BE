@@ -4,15 +4,14 @@ import com.SoftwareEngineering.AcademicAdmin.dto.request.GradeReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.PostReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.PostUpdateReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SyllabusReqDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.CourseListResDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.ScheduleDetailDTO;
-import com.SoftwareEngineering.AcademicAdmin.dto.response.SyllabusResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.*;
 import com.SoftwareEngineering.AcademicAdmin.entity.*;
 import com.SoftwareEngineering.AcademicAdmin.exception.board.BoardNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.post.PostNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
 import com.SoftwareEngineering.AcademicAdmin.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -189,4 +188,34 @@ public class ProfessorService {
         postRepository.deleteById(id);
     }
 
+    public PostDetailResDTO readAssignment(Long postId) {
+        Post post = postRepository.findAssignmentPostByPostId(postId);
+        List<File> files = post.getFile();
+        List<FileDetailDTO> fileDetailDTOS = new ArrayList<>();
+
+        for(File file : files){
+            fileDetailDTOS.add(FileDetailDTO.builder()
+                            .fileName(file.getFileName())
+                            .title(file.getTitle())
+                            .studentId(file.getStudentId())
+                            .link("http://localhost:8080/file/download/"+file.getId())
+                    .build());
+
+        }
+
+        PostDetailResDTO postDetailResDTO =PostDetailResDTO.builder()
+                .content(post.getContent())
+                .deadline(post.getDeadline())
+                .files(fileDetailDTOS)
+                .id(postId)
+                .time(post.getTime())
+                .writer(post.getWriter())
+                .title(post.getTitle())
+                .build();
+
+
+        return postDetailResDTO;
+
+
+    }
 }
