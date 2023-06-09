@@ -5,6 +5,7 @@ import com.SoftwareEngineering.AcademicAdmin.dto.request.PostReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.PostUpdateReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SyllabusReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.CourseListResDTO;
+import com.SoftwareEngineering.AcademicAdmin.dto.response.PostDetailResDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.SyllabusResDTO;
 import com.SoftwareEngineering.AcademicAdmin.service.ProfessorService;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,7 @@ public class ProfessorController {
         return ResponseEntity.ok().body(professorService.writePost(postReqDTO));
     }
 
-    
+
     @PatchMapping("/update/post")
     public ResponseEntity<Long> updatePost(@RequestBody PostUpdateReqDTO postUpdateReqDTO){
         return ResponseEntity.ok().body(professorService.updatePost(postUpdateReqDTO));
@@ -48,6 +49,11 @@ public class ProfessorController {
     @PostMapping("/give/grade")
     public ResponseEntity<Long> giveGrade(@RequestBody GradeReqDTO gradeReqDTO){
         return ResponseEntity.ok().body(professorService.giveGrade(gradeReqDTO));
+    }
+
+    @GetMapping("/professor/read/assignment")
+    public ResponseEntity<PostDetailResDTO> readAssignment(@RequestParam Long postId){
+        return ResponseEntity.ok().body(professorService.readAssignment(postId));
     }
 
     @GetMapping("/course/list")
