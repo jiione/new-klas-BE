@@ -40,7 +40,11 @@ public class GradeService {
             gradeDetail.setSemesterName(semesterName);
             Set<Course> courses = semester.getCourses();
 
+            courses.removeIf(course -> course.getScore() == null || course.getScore().isEmpty());
+            if(courses.isEmpty()) continue;
+
             for(Course course : courses){
+
                 changeScore(course.getScore());
                 Subjects subjects = course.getSubjects();
                 tmpGradeSum += changeScore(course.getScore());
