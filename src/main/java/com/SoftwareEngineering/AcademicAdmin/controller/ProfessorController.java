@@ -36,7 +36,7 @@ public class ProfessorController {
     }
 
 
-    @PatchMapping("/update/post")
+    @PutMapping("/update/post")
     public ResponseEntity<Long> updatePost(@RequestBody PostUpdateReqDTO postUpdateReqDTO){
         return ResponseEntity.ok().body(professorService.updatePost(postUpdateReqDTO));
     }
