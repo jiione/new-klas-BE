@@ -41,4 +41,7 @@ public final class ExceptionMessage {
 	//post
 	public static final String POST_NOT_FOUND = "게시글이 존재하지 않습니다.";
 
+	//admin
+	public static final	String IS_NOT_ADMIN = "관리자가 아닙니다";
+
 }
