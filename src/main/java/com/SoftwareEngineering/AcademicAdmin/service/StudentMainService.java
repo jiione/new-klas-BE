@@ -76,7 +76,9 @@ public class StudentMainService {
 
     public List<ScheduleResDTO> getStudentSchedule(Long studentId, Long year, Long semester) {
         User user = userRepository.getUserByStudentId(studentId);
+        if (user == null) return null;
         Set<Semester> semesters = user.getSemesters();
+
         Semester sem = null;
         for (Semester s : semesters) {
             if (s.getYear().equals(year) && s.getSemester().equals(semester)) {
