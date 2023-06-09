@@ -65,7 +65,7 @@ public class RegistrationService {
 	public void registerBasket(Long studentId, Long classId){
 		User user = userService.getUser(studentId);
 		Subjects subjects = getSubject(classId);
-		Basket basket = Basket.of(user, subjects);
+		Basket basket = Basket.from(subjects);
 		basketRepository.save(basket);
 	}
 
@@ -76,7 +76,7 @@ public class RegistrationService {
 
 	public SearchResDTO getBasket(Long studentId){
 		lectureService.validateUser(studentId);
-		List<Basket> baskets = basketRepository.findBasketByStudentId(studentId);
+		List<Basket> baskets = basketRepository.findBasketByStudentId();
 
 		List<Subjects> subjects = new ArrayList<>();
 		for (Basket basket : baskets){
