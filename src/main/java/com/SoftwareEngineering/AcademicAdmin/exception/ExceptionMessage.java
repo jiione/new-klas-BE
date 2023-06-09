@@ -43,5 +43,7 @@ public final class ExceptionMessage {
 
 	//admin
 	public static final	String IS_NOT_ADMIN = "관리자가 아닙니다";
+	public static final String ADMIN_NOT_DELETE = "관리자는 지울 수 없습니다";
+
 
 }
