@@ -9,11 +9,13 @@ import com.SoftwareEngineering.AcademicAdmin.dto.request.LoginReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.request.SignUpReqDTO;
 import com.SoftwareEngineering.AcademicAdmin.dto.response.LoginResDTO;
 import com.SoftwareEngineering.AcademicAdmin.entity.Department;
+import com.SoftwareEngineering.AcademicAdmin.entity.Subjects;
 import com.SoftwareEngineering.AcademicAdmin.entity.User;
 import com.SoftwareEngineering.AcademicAdmin.exception.department.DepartmentNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.user.InvalidPassword;
 import com.SoftwareEngineering.AcademicAdmin.exception.user.UserNotFound;
 import com.SoftwareEngineering.AcademicAdmin.repository.DepartmentRepository;
+import com.SoftwareEngineering.AcademicAdmin.repository.SemesterRepository;
 import com.SoftwareEngineering.AcademicAdmin.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ import java.util.List;
 public class UserService {
 	private final UserRepository userRepository;
 	private final DepartmentRepository departmentRepository;
+	private final SemesterRepository semesterRepository;
 
 	public LoginResDTO login(LoginReqDTO loginReqDTO){
 		User user = getUser(loginReqDTO.getStudentId());
@@ -46,6 +49,11 @@ public class UserService {
 		Department department = getDepartmentByName(signUpReqDTO.getDepartmentName());
 		User user = User.of(signUpReqDTO, department);
 		userRepository.save(user);
+		semesterRepository.save(Semester.builder()
+			.user(user)
+			.year(2023L)
+			.semester(1L)
+			.build());
 	}
 
 	private Department getDepartmentByName(String name){
