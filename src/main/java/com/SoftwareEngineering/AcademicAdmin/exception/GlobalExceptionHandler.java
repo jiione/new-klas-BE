@@ -18,6 +18,7 @@ import com.SoftwareEngineering.AcademicAdmin.exception.register.CreditExceedExce
 import com.SoftwareEngineering.AcademicAdmin.exception.semester.SemesterNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.subject.SubjectNotFound;
 import com.SoftwareEngineering.AcademicAdmin.exception.user.InvalidPassword;
+import com.SoftwareEngineering.AcademicAdmin.exception.user.NotAdmin;
 import com.SoftwareEngineering.AcademicAdmin.exception.user.UserNotFound;
 
 @RestControllerAdvice
@@ -90,4 +91,9 @@ public class GlobalExceptionHandler {
 		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
 	}
 
+	@ExceptionHandler(NotAdmin.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionResponse notAdmin(Exception e) {
+		return new ExceptionResponse(e.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+	}
 }
