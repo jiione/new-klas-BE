@@ -25,19 +25,14 @@ public class Basket {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "subject_id")
 	private Subjects subjects;
 
-	private Basket(User user, Subjects subjects){
-		this.user = user;
+	private Basket(Subjects subjects){
 		this.subjects = subjects;
 	}
 
-	public static Basket of(User user, Subjects subjects){
-		return new Basket(user, subjects);
+	public static Basket from(Subjects subjects){
+		return new Basket(subjects);
 	}
 }
