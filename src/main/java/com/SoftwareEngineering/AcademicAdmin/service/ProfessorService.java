@@ -215,7 +215,5 @@ public class ProfessorService {
 
 
         return postDetailResDTO;
-
-
     }
 }
